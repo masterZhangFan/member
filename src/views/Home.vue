@@ -4,7 +4,7 @@
       <div class="user-base-info">
         <img class="header-img" src="@/assets/images/qq (1).png" alt="">
         <div class="phone">15928137520</div>
-        <div class="level">
+        <div class="level" @click="$router.push('/upgrade')">
           <span><img src="@/assets/images/icon_masonry.svg" alt=""> 初级会员</span>
           <img class="micon-up" src="@/assets/images/icon_masonry.svg" alt="">
         </div>
@@ -18,7 +18,7 @@
         <div class="item-info">
           <span class="title">余额</span>
           <span class="value">5.2</span>
-          <span class="todo">充值</span>
+          <span class="todo" @click="$router.push('/recharge')">充值</span>
         </div>
         <div class="item-info">
           <span class="title">可提现金额</span>
@@ -63,7 +63,7 @@
   position: relative;
   .home-page-top {
     position: absolute;
-    top: px2rem(78);
+    top: px2rem(58);
     text-align: center;
     width: 100%;
     color: $ft--color;
@@ -86,7 +86,7 @@
         letter-spacing: 0.05em;
       }
       .level{
-        margin-top: px2rem(10);
+        margin-top: px2rem(20);
         @include flex;
         span{
           @include flex;
@@ -111,7 +111,7 @@
       .rules{
         color: #1d62a3;
         font-size: px2rem(24);
-        margin-top: px2rem(10);
+        margin-top: px2rem(20);
       }
     }
     .user-member-info{

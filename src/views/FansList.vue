@@ -1,10 +1,10 @@
 <template>
-  <div class="page-container-nobg fans-list-page pt">
-    <Header/>
+  <div class="page-container-nobg fans-list-page">
+    <Header title="粉丝列表"/>
     <section>
       <van-tabs @click="onClick">
         <van-tab title="直属粉丝">
-          <div class="item-fans-box">
+          <div class="item-fans-box" v-for="(item,index) in 5" :key="index">
             <img class="header-img" src="@/assets/images/qq (1).png" alt="">
             <div class="content-info">
               <div class="top">
@@ -18,7 +18,21 @@
             </div>
           </div>
         </van-tab>
-        <van-tab title="推荐粉丝">推荐粉丝</van-tab>
+        <van-tab title="推荐粉丝">
+          <div class="item-fans-box" v-for="(item,index) in 6" :key="index">
+            <img class="header-img" src="@/assets/images/qq (1).png" alt="">
+            <div class="content-info">
+              <div class="top">
+                <span class="phone">15928137520</span>
+                <span class="level">
+                  <img src="@/assets/images/icon_masonry.svg" alt="">
+                  初级会员
+                </span>
+              </div>
+              <div class="bottom">返现金额：100</div>
+            </div>
+          </div>
+        </van-tab>
       </van-tabs>
     </section>
   </div>
@@ -67,15 +81,20 @@ export default {
     }
   }
   .item-fans-box{
-    @include flex(flex-start);
-    padding: px2rem(40);
+    @include flex(flex-start,flex-end);
+    height: px2rem(122);
+    padding: 0 px2rem(40);
     .header-img{
       width: px2rem(88);
       border-radius: 50%;
     }
     .content-info{
-      @include flex(space-around,flex-start,column);
+      @include flex(center,flex-start,column);
       height: px2rem(80);
+      border-bottom: 1px solid rgb(247,244,242);
+      flex: 1;
+      padding-bottom: px2rem(15);
+      margin-left: px2rem(12);
       .top{
         @include flex(flex-start,center);
         .phone{
@@ -99,7 +118,9 @@ export default {
         }
       }
       .bottom{
-
+        margin-top: px2rem(13);
+        font-size: px2rem(24);
+        color: #b4b4b4;
       }
     }
   }

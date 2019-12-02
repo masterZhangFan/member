@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2019-12-01 11:09:27
- * @LastEditTime: 2019-12-02 01:13:44
+ * @LastEditTime: 2019-12-03 00:56:04
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \member-agent-h5\src\router\index.js
@@ -30,6 +30,16 @@ export default new Router({
       path: '/fans-list',
       name: 'fansList',
       component: () => lazyLoadView(import('@/views/FansList.vue'))
+    },
+    {
+      path: '/upgrade',
+      name: 'Upgrade',
+      component: () => lazyLoadView(import('@/views/Upgrade.vue'))
+    },
+    {
+      path: '/recharge',
+      name: 'Recharge',
+      component: () => lazyLoadView(import('@/views/Recharge.vue'))
     },
     {
       path: '/about',

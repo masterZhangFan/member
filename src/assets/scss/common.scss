@@ -22,12 +22,17 @@ img{
 	vertical-align: top;
 }
 
-.page-container,.page-container-nobg {
+.page-container,.page-container-nobg,.page-container-bg {
   width: 100%;
 	height: 100vh;
 	&.page-container{
 		background: url("~@/assets/images/home_bg.png") no-repeat;
-		background-size: px2rem(750) auto;
+		background-position: top center;
+		background-size: 100% px2rem(1340);
+	}
+	&.page-container-bg{
+		background: url("~@/assets/images/recharge_bg.png") no-repeat;
+		background-size: 100% px2rem(1340);
 		background-position: top center;
 	}
 }

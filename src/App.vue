@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-30 12:08:54
- * @LastEditTime: 2019-12-01 22:52:11
+ * @LastEditTime: 2019-12-03 01:18:10
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -28,8 +28,8 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #333;
   font-size: px2rem(28);
-  position: relative;;
-  max-width: 1200px;
+  position: relative;
+  max-width: px2rem(1200);
   margin: 0 auto;
 }
 .slide-left-enter, .slide-right-leave-active {

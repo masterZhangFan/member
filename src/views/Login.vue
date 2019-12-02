@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2019-12-01 22:32:10
- * @LastEditTime: 2019-12-02 01:44:32
+ * @LastEditTime: 2019-12-03 01:37:13
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \member-agent-h5\src\views\Login.vue
@@ -74,7 +74,7 @@ export default {
   .login-in-box {
     width: px2rem(484);
     position: absolute;
-    top: 600px;
+    top: px2rem(600);
     left: 50%;
     margin-left: px2rem(-242);
     .phone,
