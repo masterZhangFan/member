@@ -1,0 +1,31 @@
+@import './mixins.scss';
+.van-button--primary{
+	background: $ft--color;
+}
+.van-nav-bar{
+	@include flex(space-between);
+	height: px2rem(92);
+	background: $ft--color;
+	position: sticky;
+	top: px2rem(0);
+	z-index: 10000!important;
+	&>div{
+		height: 100%;
+		line-height: px2rem(92);
+		color: #fff;
+		.van-icon-arrow-left{
+			font-size: px2rem(36);
+			color: #fff;
+		}
+	}
+	.van-nav-bar__title{
+		font-size: px2rem(34);
+	}
+}
+.van-toast--text{
+	font-size: px2rem(28);
+	min-width: px2rem(192);
+	padding: px2rem(16) px2rem(24);
+	line-height: px2rem(40);
+	border-radius: px2rem(8);
+}
