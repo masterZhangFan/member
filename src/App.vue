@@ -29,7 +29,7 @@ export default {
   color: #333;
   font-size: px2rem(28);
   position: relative;
-  max-width: px2rem(1200);
+  max-width: px2rem(750);
   margin: 0 auto;
 }
 .slide-left-enter, .slide-right-leave-active {

@@ -39,7 +39,7 @@
         </ul>
       </div>
       <div class="recharge-btn-box">
-        <van-button class="recharge-btn" round type="primary" size="large" @click="login">立 即 充 值</van-button>
+        <van-button class="recharge-btn" round type="primary" size="large" @click="recharge">立 即 充 值</van-button>
         <div class="rules">《高级会员权益》</div>
       </div>
 
@@ -59,7 +59,7 @@ export default {
     }
   },
   methods: {
-    onClick (name, title) {
+    recharge (name, title) {
       this.$toast(title)
     }
   }

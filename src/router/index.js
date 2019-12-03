@@ -42,6 +42,16 @@ export default new Router({
       component: () => lazyLoadView(import('@/views/Recharge.vue'))
     },
     {
+      path: '/invite-agents',
+      name: 'InviteAgents',
+      component: () => lazyLoadView(import('@/views/InviteAgents.vue'))
+    },
+    {
+      path: '/share',
+      name: 'Share',
+      component: () => lazyLoadView(import('@/views/Share.vue'))
+    },
+    {
       path: '/about',
       name: 'about',
       // route level code-splitting

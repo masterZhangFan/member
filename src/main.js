@@ -11,6 +11,9 @@ import App from './App.vue'
 import router from './router/index'
 import store from './store/index'
 
+// 阿里适配方案
+import 'lib-flexible'
+
 import { Button, NavBar, Toast, Tab, Tabs } from 'vant'
 Vue.use(Button).use(NavBar).use(Toast).use(Tab).use(Tabs)
 

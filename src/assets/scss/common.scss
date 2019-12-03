@@ -28,11 +28,11 @@ img{
 	&.page-container{
 		background: url("~@/assets/images/home_bg.png") no-repeat;
 		background-position: top center;
-		background-size: 100% px2rem(1340);
+		background-size: 100% auto;
 	}
 	&.page-container-bg{
 		background: url("~@/assets/images/recharge_bg.png") no-repeat;
-		background-size: 100% px2rem(1340);
+		background-size: 100% auto;
 		background-position: top center;
 	}
 }
