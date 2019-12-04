@@ -1,11 +1,10 @@
 <!--
- * @Author: your name
- * @Date: 2019-12-02 22:01:56
- * @LastEditTime: 2019-12-05 00:33:46
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \member\src\components\header\Index.vue
+ * @Author: 尼大人
+ * @Date: 2019-12-05 00:54:51
+ * @LastEditors: 尼大人
+ * @LastEditTime: 2019-12-05 01:20:25
  -->
+
 <template>
   <van-nav-bar
     :title="title"

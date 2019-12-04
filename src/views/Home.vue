@@ -35,7 +35,7 @@
       <ul>
         <li>
           <img class="left-logo" src="@/assets/images/icon_invite.svg" alt="">
-          <div class="right-box">
+          <div class="right-box" @click="$router.push('/invite-agents')">
             <span>代理邀请</span>
             <img class="micon-right" src="@/assets/images/icon_right.svg" alt="">
           </div>
@@ -49,7 +49,7 @@
         </li>
         <li>
           <img class="left-logo" src="@/assets/images/icon_agent_list.svg" alt="">
-          <div class="right-box">
+          <div class="right-box" @click="$router.push('/agents-list')">
             <span>代理列表</span>
             <img  class="micon-right" src="@/assets/images/icon_right.svg" alt="">
           </div>

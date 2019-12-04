@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2019-12-01 22:32:10
- * @LastEditTime: 2019-12-03 01:37:13
+ * @LastEditTime: 2019-12-05 00:30:15
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \member-agent-h5\src\views\Login.vue
@@ -17,12 +17,12 @@
     <div class="login-in-box">
       <div class="phone">
         <img src="@/assets/images/phone.svg" alt="">
-        <input type="text" placeholder="请输入手机号">
+        <input v-model="loginData.phoneNumber" type="text" placeholder="请输入手机号">
       </div>
       <div class="code">
         <img src="@/assets/images/phone.svg" alt="">
-        <input type="text" placeholder="请输入验证码">
-        <span class="get-code">获取验证码</span>
+        <input v-model="loginData.code" type="text" placeholder="请输入验证码">
+        <span :class="{'get-code': true, 'disabled': disabled}" @click="getPhoneCode">{{disabled?waitingTime:'获取验证码'}}</span>
       </div>
       <div class="login-btn-box">
         <van-button class="login-btn" round type="primary" size="large" @click="login">登 录</van-button>
@@ -31,15 +31,57 @@
   </div>
 </template>
 <script>
+import { login, getPhoneCode } from '@/api/user'
+
 export default {
   data () {
     return {
-
+      disabled: false,
+      countTime: 60,
+      waitingTime: 0,
+      timmer: '',
+      loginData: {
+        'code': '1234',
+        'loginType': 0,
+        'openId': '11111',
+        'phoneNumber': '15928137520'
+      }
     }
   },
   methods: {
     login () {
+      login(this.loginData).then(res => {
+        this.$router.push('/home')
+      })
       this.$router.push('/home')
+    },
+    getPhoneCode () {
+      if (!this.disabled) {
+        this.runTimmer()
+        getPhoneCode({
+          phoneNumber: '15928137520'
+        }).then(res => {
+          this.disabled = false
+          window.clearInterval(this.timmer)
+          if (res.status * 1 === 0) {
+
+          }
+        })
+      }
+    },
+    runTimmer () {
+      this.waitingTime = this.countTime * 1
+      this.disabled = true
+      if (this.timmer) {
+        window.clearInterval(this.timmer)
+      }
+      this.timmer = setInterval(() => {
+        this.waitingTime--
+        if (this.waitingTime === 0) {
+          window.clearInterval(this.timmer)
+          this.disabled = false
+        }
+      }, 1000)
     }
   }
 }
@@ -114,6 +156,9 @@ export default {
           background: $ft--color;
           font-size: px2rem(24);
           color: #fff;
+          &.disabled{
+            opacity: 0.4;
+          }
         }
       }
     }

@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2019-12-01 11:09:27
- * @LastEditTime: 2019-12-03 00:56:04
+ * @LastEditTime: 2019-12-05 00:38:02
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \member-agent-h5\src\router\index.js
@@ -17,6 +17,10 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
+      path: '/',
+      redirect: '/login'
+    },
+    {
       path: '/login',
       name: 'login',
       component: () => lazyLoadView(import('@/views/Login.vue'))
@@ -30,6 +34,11 @@ export default new Router({
       path: '/fans-list',
       name: 'fansList',
       component: () => lazyLoadView(import('@/views/FansList.vue'))
+    },
+    {
+      path: '/agents-list',
+      name: 'agentsList',
+      component: () => lazyLoadView(import('@/views/AgentsList.vue'))
     },
     {
       path: '/upgrade',
