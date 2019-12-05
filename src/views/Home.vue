@@ -23,7 +23,7 @@
         <div class="item-info">
           <span class="title">可提现金额</span>
           <span class="value">5.2</span>
-          <span class="todo">提现</span>
+          <span class="todo" @click="$router.push('/take-out')">提现</span>
         </div>
         <div class="item-info">
           <span class="title">话费</span>
@@ -42,7 +42,7 @@
         </li>
         <li>
           <img class="left-logo" src="@/assets/images/icon_add_agent.svg" alt="">
-          <div class="right-box">
+          <div class="right-box" @click="show=true">
             <span>添加代理</span>
             <img class="micon-right" src="@/assets/images/icon_right.svg" alt="">
           </div>
@@ -56,9 +56,33 @@
         </li>
       </ul>
     </div>
+    <van-popup
+      :close-on-click-overlay='false'
+      round
+      v-model="show">
+      <AddAgents/>
+    </van-popup>
   </div>
 </template>
+<script>
+import AddAgents from './AddAgents.vue'
+export default {
+  components: {
+    AddAgents
+  },
+  data () {
+    return {
+      show: false
+    }
+  }
+
+}
+</script>
+
 <style lang="scss" scoped>
+.van-popup--center.van-popup--round{
+  border-radius: px2rem(10);
+}
 .home-page {
   position: relative;
   .home-page-top {

@@ -51,6 +51,16 @@ export default new Router({
       component: () => lazyLoadView(import('@/views/Recharge.vue'))
     },
     {
+      path: '/take-out',
+      name: 'TakeOut',
+      component: () => lazyLoadView(import('@/views/TakeOut.vue'))
+    },
+    {
+      path: '/setting-count',
+      name: 'SettingCount',
+      component: () => lazyLoadView(import('@/views/SettingCount.vue'))
+    },
+    {
       path: '/invite-agents',
       name: 'InviteAgents',
       component: () => lazyLoadView(import('@/views/InviteAgents.vue'))

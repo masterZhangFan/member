@@ -178,6 +178,7 @@ export default {
       margin: 0 auto;
       .recharge-btn{
         height: px2rem(80);
+        line-height: px2rem(80);
         color: #fff;
         font-size: px2rem(30);
       }

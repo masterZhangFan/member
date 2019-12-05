@@ -1,6 +1,7 @@
 @import './mixins.scss';
 .van-button--primary{
 	background: $ft--color;
+	border-color: $ft--color;
 }
 .van-nav-bar{
 	@include flex(space-between);
@@ -9,6 +10,9 @@
 	position: sticky;
 	top: px2rem(0);
 	z-index: 10000!important;
+	&.van-hairline--bottom::after{
+		border-bottom-width: 0;
+	}
 	&>div{
 		height: 100%;
 		line-height: px2rem(92);
@@ -28,4 +32,8 @@
 	padding: px2rem(16) px2rem(24);
 	line-height: px2rem(40);
 	border-radius: px2rem(8);
+}
+
+.van-overlay{
+	background-color: rgba(0,0,0,.4);
 }
