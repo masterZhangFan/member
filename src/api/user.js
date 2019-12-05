@@ -1,18 +1,18 @@
 /*
  * @Author: your name
  * @Date: 2019-12-04 23:18:47
- * @LastEditTime: 2019-12-05 00:08:38
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2019-12-05 22:31:05
+ * @LastEditors: 尼大人
  * @Description: In User Settings Edit
  * @FilePath: \member\src\api\user.js
  */
 import request from '@/utils/request'
 
-export function getPhoneCode (params) {
+export function getPhoneCode (data) {
   return request({
     url: '/login/sendSms',
-    method: 'get',
-    params
+    method: 'post',
+    data
   })
 }
 

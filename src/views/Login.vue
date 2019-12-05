@@ -1,8 +1,8 @@
 <!--
  * @Author: your name
  * @Date: 2019-12-01 22:32:10
- * @LastEditTime: 2019-12-05 00:30:15
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2019-12-06 00:42:24
+ * @LastEditors: 尼大人
  * @Description: In User Settings Edit
  * @FilePath: \member-agent-h5\src\views\Login.vue
  -->
@@ -41,14 +41,22 @@ export default {
       waitingTime: 0,
       timmer: '',
       loginData: {
-        'code': '1234',
+        'code': '',
         'loginType': 0,
-        'openId': '11111',
-        'phoneNumber': '15928137520'
+        'openId': '',
+        'phoneNumber': ''
       }
     }
   },
+  mounted () {
+    // this.authorization()
+  },
   methods: {
+    authorization () {
+      let url = window.encodeURIComponent('http://m.9000ji.com/recommend')
+      // gh_ca7d929dcac2
+      window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxd812cd5b3a0f2199&redirect_uri=''&response_type=code&scope=snsapi_userinfo&state=WX&connect_redirect=1#wechat_redirect`
+    },
     login () {
       login(this.loginData).then(res => {
         this.$router.push('/home')
@@ -59,7 +67,7 @@ export default {
       if (!this.disabled) {
         this.runTimmer()
         getPhoneCode({
-          phoneNumber: '15928137520'
+          phoneNumber: ''
         }).then(res => {
           this.disabled = false
           window.clearInterval(this.timmer)
@@ -166,6 +174,7 @@ export default {
       margin-top: px2rem(130);
       .login-btn{
         height: px2rem(80);
+        line-height: px2rem(80);
         color: #fff;
       }
     }
