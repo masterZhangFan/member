@@ -38,3 +38,21 @@ export function logout () {
     method: 'post'
   })
 }
+
+// 获取推荐粉丝
+export function getIndirectFanWithUserId (params) {
+  return request({
+    url: '/user/getIndirectFanWithUserId',
+    method: 'get',
+    params: params
+  })
+}
+
+// 获取直属粉丝
+export function getDirectlyFanWithUserId (params) {
+  return request({
+    url: '/user/getDirectlyFanWithUserId',
+    method: 'get',
+    params: params
+  })
+}

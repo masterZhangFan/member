@@ -39,6 +39,7 @@
 </template>
 
 <script>
+import { getIndirectFanWithUserId, getDirectlyFanWithUserId } from '@/api/user'
 import Header from '@/components/header/Index.vue'
 export default {
   components: {
@@ -49,9 +50,23 @@ export default {
 
     }
   },
+  created () {
+    this.getIndirectFanWithUserId()
+    this.getDirectlyFanWithUserId()
+  },
   methods: {
     onClick (name, title) {
-      this.$toast(title)
+
+    },
+    getIndirectFanWithUserId () {
+      getIndirectFanWithUserId().then(res => {
+
+      })
+    },
+    getDirectlyFanWithUserId () {
+      getDirectlyFanWithUserId().then(res => {
+
+      })
     }
   }
 }

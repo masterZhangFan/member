@@ -25,7 +25,8 @@ export default {
   },
   data () {
     return {
-      showUser: false
+      showUser: false,
+      value: '1'
     }
   },
   methods: {

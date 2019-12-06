@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import { getAgentList } from '@/api/agent'
 import Header from '@/components/header/Index.vue'
 export default {
   components: {
@@ -30,9 +31,17 @@ export default {
 
     }
   },
+  created () {
+    this.getAgentList()
+  },
   methods: {
     onClick (name, title) {
       this.$toast(title)
+    },
+    getAgentList () {
+      getAgentList().then(res => {
+
+      })
     }
   }
 }

@@ -42,8 +42,8 @@
       </section>
     </section>
     <section class='bottom-box'>
-      <van-button class="bottom-btn-cancel my-btn" round type="primary" @click="login">取 消</van-button>
-      <van-button class="bottom-btn-confirm my-btn" round type="primary"  @click="login">确认</van-button>
+      <van-button class="bottom-btn-cancel my-btn" round type="primary" @click="$emit('setShow',false)">取 消</van-button>
+      <van-button class="bottom-btn-confirm my-btn" round type="primary"  @click="submitAddAgent">确认</van-button>
     </section>
   </div>
 </template>
@@ -66,7 +66,10 @@ export default {
     }
   },
   methods: {
-
+    login () {},
+    submitAddAgent () {
+      this.$emit('setShow', false)
+    }
   }
 }
 </script>

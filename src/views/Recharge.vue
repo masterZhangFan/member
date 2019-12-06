@@ -8,16 +8,10 @@
  -->
 <template>
   <div class="page-container-bg recharge-page">
-    <Header title="会员升级"/>
+    <Header title="余额充值"/>
     <section class="content-box-top">
-      <div class="top-box">
-        <span class="current-level">当前等级</span>
-        <span class="level">
-          <img src="@/assets/images/icon_masonry.svg" alt="">
-          初级会员
-        </span>
-      </div>
-      <div class="money-tip">升级到高级会员仅需￥<span class="money-number">299</span></div>
+      <div class="top-box">￥<span class="current-level">99</span></div>
+      <div class="money-tip">可用作某某某用途</div>
     </section>
     <section class="content-box-bottom">
       <div class="recharge-type-box">
@@ -46,7 +40,6 @@
       </div>
       <div class="recharge-btn-box">
         <van-button class="recharge-btn" round type="primary" size="large" @click="recharge">立 即 充 值</van-button>
-        <div class="rules">《高级会员权益》</div>
       </div>
 
     </section>
@@ -71,7 +64,7 @@ export default {
   }
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .recharge-page {
   .content-box-top{
     padding-top: px2rem(80);
@@ -81,6 +74,7 @@ export default {
       @include flex();
         .current-level{
           margin-right: px2rem(10);
+          font-size: px2rem(48);
         }
         .level{
           @include flex;
@@ -176,6 +170,7 @@ export default {
     .recharge-btn-box{
       width: px2rem(484);
       margin: 0 auto;
+      padding-bottom: px2rem(20);
       .recharge-btn{
         height: px2rem(80);
         line-height: px2rem(80);

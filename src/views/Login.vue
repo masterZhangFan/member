@@ -42,7 +42,7 @@ export default {
       timmer: '',
       loginData: {
         'code': '',
-        'loginType': 0,
+        'loginType': 1,
         'openId': '',
         'phoneNumber': ''
       }
@@ -67,12 +67,13 @@ export default {
       if (!this.disabled) {
         this.runTimmer()
         getPhoneCode({
-          phoneNumber: ''
+          phoneNumber: this.loginData.phoneNumber
         }).then(res => {
           this.disabled = false
-          window.clearInterval(this.timmer)
           if (res.status * 1 === 0) {
-
+            this.$toast('发送成功！')
+          } else {
+            window.clearInterval(this.timmer)
           }
         })
       }

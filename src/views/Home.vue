@@ -60,7 +60,7 @@
       :close-on-click-overlay='false'
       round
       v-model="show">
-      <AddAgents/>
+      <AddAgents @setShow='setShow'/>
     </van-popup>
   </div>
 </template>
@@ -73,6 +73,11 @@ export default {
   data () {
     return {
       show: false
+    }
+  },
+  methods: {
+    setShow (flag) {
+      this.show = flag
     }
   }
 
