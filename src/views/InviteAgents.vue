@@ -1,8 +1,8 @@
 <!--
  * @Author: your name
  * @Date: 2019-12-02 23:54:53
- * @LastEditTime: 2019-12-03 01:45:24
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2019-12-07 01:33:32
+ * @LastEditors: 尼大人
  * @Description: In User Settings Edit
  * @FilePath: \member\src\views\UpgradeRecharge.vue
  -->
@@ -17,7 +17,7 @@
         </div>
       </div>
       <div class="invite-btn-box">
-        <van-button class="invite-btn" round type="primary" size="large" @click="recharge">下一步</van-button>
+        <van-button class="invite-btn" round type="primary" size="large" @click="$router.push('/share')">下一步</van-button>
       </div>
     </section>
   </div>
@@ -78,6 +78,7 @@ export default {
       margin-left: px2rem(-242);
       .invite-btn{
         height: px2rem(80);
+        line-height: px2rem(80);
         color: #fff;
         font-size: px2rem(30);
       }

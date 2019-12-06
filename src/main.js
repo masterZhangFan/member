@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2019-12-01 11:09:27
- * @LastEditTime: 2019-12-02 01:08:06
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2019-12-07 00:52:05
+ * @LastEditors: 尼大人
  * @Description: In User Settings Edit
  * @FilePath: \member-agent-h5\src\main.js
  */
@@ -23,9 +23,10 @@ import {
   Field,
   Popup,
   DropdownMenu,
-  DropdownItem
+  DropdownItem,
+  Uploader
 } from 'vant'
-Vue.use(Button).use(NavBar).use(Toast).use(Tab).use(Tabs).use(Field).use(Popup).use(DropdownMenu).use(DropdownItem)
+Vue.use(Button).use(NavBar).use(Toast).use(Tab).use(Tabs).use(Field).use(Popup).use(DropdownMenu).use(DropdownItem).use(Uploader)
 
 Vue.config.productionTip = false
 

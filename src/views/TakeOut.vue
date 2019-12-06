@@ -1,8 +1,8 @@
 <!--
  * @Author: your name
  * @Date: 2019-12-02 23:54:53
- * @LastEditTime: 2019-12-03 01:06:06
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2019-12-07 01:58:32
+ * @LastEditors: 尼大人
  * @Description: In User Settings Edit
  * @FilePath: \member\src\views\UpgradeRecharge.vue
  -->
@@ -32,7 +32,7 @@
         </ul>
       </div>
       <div class="recharge-btn-box">
-        <van-button class="recharge-btn" round type="primary" size="large" @click="recharge">提 交 申 请</van-button>
+        <van-button class="recharge-btn" round type="primary" size="large" @click="userCommissionApplay">提 交 申 请</van-button>
       </div>
 
     </section>
@@ -40,6 +40,7 @@
 </template>
 
 <script>
+import { userCommissionApplay } from '@/api/pay'
 import Header from '@/components/header/Index.vue'
 export default {
   components: {
@@ -51,8 +52,13 @@ export default {
     }
   },
   methods: {
-    recharge (name, title) {
-      this.$toast(title)
+    userCommissionApplay () {
+      userCommissionApplay({
+        alipayRealname: '',
+        alipayAccount: ''
+      }).then(res => {
+
+      })
     }
   }
 }

@@ -1,8 +1,8 @@
 <!--
  * @Author: your name
  * @Date: 2019-12-02 23:54:53
- * @LastEditTime: 2019-12-03 01:45:24
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2019-12-07 02:05:47
+ * @LastEditors: 尼大人
  * @Description: In User Settings Edit
  * @FilePath: \member\src\views\UpgradeRecharge.vue
  -->
@@ -17,7 +17,7 @@
       <div class="recharge-type-box">
         <h3>账户充值</h3>
         <div class="type-box">
-          <span :class="{'item-type': true, 'item-active': index==0}" :key="index" v-for="(item,index) in 4">200元</span>
+          <span @click="currentIndex=index" :class="{'item-type': true, 'item-active': index==currentIndex}" :key="index" v-for="(item,index) in 4">200元</span>
         </div>
       </div>
       <div class="recharge-pay-type">
@@ -29,13 +29,13 @@
               <img class="micon-right" src="@/assets/images/icon_selected.png" alt="">
             </div>
           </li>
-          <li>
+          <!-- <li>
             <img class="left-logo" src="@/assets/images/pay-alipay.png" alt="">
             <div class="right-box">
               <span>支付宝</span>
               <img class="micon-right" src="@/assets/images/icon_unselected.png" alt="">
             </div>
-          </li>
+          </li> -->
         </ul>
       </div>
       <div class="recharge-btn-box">
@@ -47,6 +47,7 @@
 </template>
 
 <script>
+import { getChargeList } from '@/api/pay'
 import Header from '@/components/header/Index.vue'
 export default {
   components: {
@@ -54,8 +55,13 @@ export default {
   },
   data () {
     return {
-
+      currentIndex: 0
     }
+  },
+  mounted () {
+    getChargeList().then(res => {
+
+    })
   },
   methods: {
     recharge (name, title) {

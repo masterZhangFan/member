@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2019-12-02 23:54:53
- * @LastEditTime: 2019-12-06 02:13:19
+ * @LastEditTime: 2019-12-07 01:45:29
  * @LastEditors: 尼大人
  * @Description: In User Settings Edit
  * @FilePath: \member\src\views\UpgradeRecharge.vue
@@ -12,33 +12,33 @@
     <section class="content-box">
       <section class="item-box">
         <span class="left">选择用户</span>
-        <MySelected type='user' />
+        <MySelected type='1' @setValue='setValue' dataKey='userId' mypalceholder='请选着用户' />
       </section>
       <section class="item-box">
         <span class="left">代理类别</span>
-        <MySelected type='user' />
+        <MySelected type='1' @setValue='setValue' dataKey='delegateTypeId' mypalceholder='请选着代理类别' />
       </section>
       <section class="item-box">
         <span class="left">返现金额</span>
         <div class="right">
-          <van-field v-model="value" placeholder="请输入提现金额" />
+          <van-field v-model="addAgentInfoData.cashBackAmount" placeholder="请输入返现金额" />
         </div>
       </section>
       <section class="item-box">
         <span class="left">身份证正面</span>
-        <MySelected type='user' />
+        <MySelected type='2' @setValue='setValue' dataKey='idCardFrontPic' mypalceholder='请上传身份证正面' />
       </section>
       <section class="item-box">
         <span class="left">身份证反面</span>
-        <MySelected type='user' />
+        <MySelected type='2' @setValue='setValue' dataKey='idCardBackPic' mypalceholder='请上传身份证反面' />
       </section>
       <section class="item-box">
         <span class="left">营业执照</span>
-        <MySelected type='user' />
+        <MySelected type='2' @setValue='setValue' dataKey='businessLicensePic' mypalceholder='请上传营业执照' />
       </section>
       <section class="item-box">
         <span class="left">状　　态</span>
-        <MySelected type='user' />
+        <MySelected type='1' @setValue='setValue' dataKey='delegateEnbale' mypalceholder='请选着状态' />
       </section>
     </section>
     <section class='bottom-box'>
@@ -49,6 +49,7 @@
 </template>
 
 <script>
+import { setAgentInfo } from '@/api/agent'
 import MySelected from '@/components/home/MySelected.vue'
 export default {
   components: {
@@ -62,13 +63,26 @@ export default {
         { text: '新款商品', value: 1 },
         { text: '活动商品', value: 2 }
       ],
-      value: '123'
+      value: '123',
+      addAgentInfoData: {
+        userId: '',
+        delegateTypeId: '',
+        cashBackAmount: '',
+        idCardFrontPic: '',
+        idCardBackPic: '',
+        businessLicensePic: '',
+        delegateEnbale: ''
+      }
     }
   },
   methods: {
     login () {},
     submitAddAgent () {
       this.$emit('setShow', false)
+      setAgentInfo()
+    },
+    setValue (key, value) {
+      this.addAgentInfoData[key] = value
     }
   }
 }

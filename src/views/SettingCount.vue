@@ -1,8 +1,8 @@
 <!--
  * @Author: your name
  * @Date: 2019-12-02 23:54:53
- * @LastEditTime: 2019-12-03 01:06:06
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2019-12-07 02:03:03
+ * @LastEditors: 尼大人
  * @Description: In User Settings Edit
  * @FilePath: \member\src\views\UpgradeRecharge.vue
  -->
@@ -15,19 +15,19 @@
           <li>
             <span class="left-title">姓名</span>
             <div class="right-box">
-              <span>王小二</span>
+              <van-field v-model="value" placeholder="请输入姓名"/>
             </div>
           </li>
           <li>
             <span class="left-title">支付宝账号</span>
             <div class="right-box">
-              <span>15928137520</span>
+              <van-field v-model="value" placeholder="请输入支付宝账号"/>
             </div>
           </li>
         </ul>
       </div>
       <div class="recharge-btn-box">
-        <van-button class="recharge-btn" type="primary" size="large" @click="submitApply">提 交 申 请</van-button>
+        <van-button class="recharge-btn" type="primary" size="large" @click="submitApply">提 交</van-button>
       </div>
 
     </section>
@@ -35,6 +35,7 @@
 </template>
 
 <script>
+import { setUserCommissionSet } from '@/api/pay'
 import Header from '@/components/header/Index.vue'
 export default {
   components: {
@@ -47,7 +48,12 @@ export default {
   },
   methods: {
     submitApply () {
-      this.$toast(123)
+      setUserCommissionSet({
+        alipayRealname: '',
+        alipayAccount: ''
+      }).then(res => {
+
+      })
     }
   }
 }

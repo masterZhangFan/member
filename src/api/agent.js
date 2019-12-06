@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2019-12-03 22:17:37
- * @LastEditTime: 2019-12-04 23:39:51
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2019-12-07 01:22:01
+ * @LastEditors: 尼大人
  * @Description: In User Settings Edit
  * @FilePath: \backgroud\src\api\agent.js
  */
@@ -39,6 +39,15 @@ export function getAgentInfo (params) {
 export function setAgentInfo (data) {
   return request({
     url: '/delegate/setDelegate',
+    method: 'post',
+    data
+  })
+}
+
+// 上传文件
+export function fileUpload (data) {
+  return request({
+    url: '/file/upload',
     method: 'post',
     data
   })
