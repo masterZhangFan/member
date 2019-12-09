@@ -25,13 +25,14 @@
         <span :class="{'get-code': true, 'disabled': disabled}" @click="getPhoneCode">{{disabled?waitingTime:'获取验证码'}}</span>
       </div>
       <div class="login-btn-box">
-        <van-button class="login-btn" round type="primary" size="large" @click="login">登 录</van-button>
+        <van-button :disabled='!loginData.code||!loginData.phoneNumber' class="login-btn" round type="primary" size="large" @click="login">登 录</van-button>
       </div>
     </div>
   </div>
 </template>
 <script>
 import { login, getPhoneCode } from '@/api/user'
+import { setUserInfo } from '@/utils/storage'
 
 export default {
   data () {
@@ -53,15 +54,15 @@ export default {
   },
   methods: {
     authorization () {
-      let url = window.encodeURIComponent('http://m.9000ji.com/recommend')
+      // let url = window.encodeURIComponent('http://m.9000ji.com/recommend')
       // gh_ca7d929dcac2
       window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxd812cd5b3a0f2199&redirect_uri=''&response_type=code&scope=snsapi_userinfo&state=WX&connect_redirect=1#wechat_redirect`
     },
     login () {
       login(this.loginData).then(res => {
+        setUserInfo(res.data)
         this.$router.push('/home')
       })
-      this.$router.push('/home')
     },
     getPhoneCode () {
       if (!this.disabled) {
@@ -69,7 +70,6 @@ export default {
         getPhoneCode({
           phoneNumber: this.loginData.phoneNumber
         }).then(res => {
-          this.disabled = false
           if (res.status * 1 === 0) {
             this.$toast('发送成功！')
           } else {

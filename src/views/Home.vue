@@ -3,7 +3,7 @@
     <div class="home-page-top">
       <div class="user-base-info">
         <img class="header-img" src="@/assets/images/qq (1).png" alt="">
-        <div class="phone">15928137520</div>
+        <div class="phone">{{userInfo.phone}}</div>
         <div class="level" @click="$router.push('/upgrade')">
           <span><img src="@/assets/images/icon_masonry.svg" alt=""> 初级会员</span>
           <img class="micon-up" src="@/assets/images/icon_masonry.svg" alt="">
@@ -65,6 +65,7 @@
   </div>
 </template>
 <script>
+import { getUserInfo } from '@/utils/storage'
 import AddAgents from './AddAgents.vue'
 export default {
   components: {
@@ -72,8 +73,12 @@ export default {
   },
   data () {
     return {
-      show: false
+      show: false,
+      userInfo: {}
     }
+  },
+  created () {
+    this.userInfo = getUserInfo() || {}
   },
   methods: {
     setShow (flag) {
