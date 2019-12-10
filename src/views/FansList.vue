@@ -4,34 +4,36 @@
     <section>
       <van-tabs @click="onClick">
         <van-tab title="直属粉丝">
-          <div class="item-fans-box" v-for="(item,index) in 5" :key="index">
+          <div class="item-fans-box" v-for="(item,index) in directlyFansList" :key="index">
             <img class="header-img" src="@/assets/images/qq (1).png" alt="">
             <div class="content-info">
               <div class="top">
-                <span class="phone">15928137520</span>
+                <span class="phone">{{item.nickname}}</span>
                 <span class="level">
                   <img src="@/assets/images/icon_masonry.svg" alt="">
                   初级会员
                 </span>
               </div>
-              <div class="bottom">返现金额：100</div>
+              <div class="bottom">返现金额：{{item.memberCashBack}}</div>
             </div>
           </div>
+          <div class="no-data-tips" v-if="!directlyFansList.length">无直属粉丝...</div>
         </van-tab>
         <van-tab title="推荐粉丝">
-          <div class="item-fans-box" v-for="(item,index) in 6" :key="index">
+          <div class="item-fans-box" v-for="(item,index) in indirectFansList" :key="index">
             <img class="header-img" src="@/assets/images/qq (1).png" alt="">
             <div class="content-info">
               <div class="top">
-                <span class="phone">15928137520</span>
+                <span class="phone">{{item.nickname}}</span>
                 <span class="level">
                   <img src="@/assets/images/icon_masonry.svg" alt="">
                   初级会员
                 </span>
               </div>
-              <div class="bottom">返现金额：100</div>
+              <div class="bottom">返现金额：{{item.memberCashBack}}</div>
             </div>
           </div>
+          <div class="no-data-tips" v-if="!directlyFansList.length">无推荐粉丝...</div>
         </van-tab>
       </van-tabs>
     </section>
@@ -47,7 +49,8 @@ export default {
   },
   data () {
     return {
-
+      indirectFansList: [],
+      directlyFansList: []
     }
   },
   created () {
@@ -60,12 +63,12 @@ export default {
     },
     getIndirectFanWithUserId () {
       getIndirectFanWithUserId().then(res => {
-
+        this.indirectFansList = res.data
       })
     },
     getDirectlyFanWithUserId () {
       getDirectlyFanWithUserId().then(res => {
-
+        this.directlyFansList = res.data
       })
     }
   }

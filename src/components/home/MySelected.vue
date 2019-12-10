@@ -8,18 +8,20 @@
 <template>
   <div class="selected-wrap">
     <template v-if="type*1==1">
-      <van-field @click='showSelect' readonly v-model="value" :placeholder="mypalceholder"/>
+      <van-field @click='setShowUserTrue' readonly v-model="value" :placeholder="mypalceholder"/>
       <div v-show="showUser" class="selecte-item-box">
-        <span @click="selectedThis" v-for="(item,index) in 2" :key="index">12356</span>
+        <span @click="selectedThis" v-for="(item,index) in dataList" :key="index">12356</span>
+        <span v-if="!dataList.length" @click="selectedThis">暂无数据...</span>
       </div>
     </template>
-    <van-uploader v-else :after-read="afterRead" v-else>
-      <van-field @click='showSelect' readonly v-model="value" :placeholder="mypalceholder"/>
+    <van-uploader v-else :after-read="afterRead">
+      <van-field @click='setShowUserTrue' readonly v-model="value" :placeholder="mypalceholder"/>
     </van-uploader>
   </div>
 </template>
 
 <script>
+import Bus from '@/utils/bus'
 import { fileUpload } from '@/api/agent'
 export default {
   name: 'MySelected',
@@ -34,7 +36,11 @@ export default {
     },
     type: {
       type: String,
-      default: 1
+      default: '1'
+    },
+    dataList: {
+      type: Array,
+      default: () => []
     }
   },
   data () {
@@ -44,9 +50,21 @@ export default {
       rightType: false
     }
   },
+  mounted () {
+    let _this = this
+    Bus.$on('setShowUserFalase', (flag, dataKey) => {
+      // console.log(flag)
+      if (dataKey !== this.dataKey) {
+        _this.showUser = flag
+      }
+    })
+  },
   methods: {
-    showSelect (flag) {
-      this.showUser = flag
+    setShowUserTrue () {
+      this.showUser = !this.showUser
+      if (this.showUser) {
+        Bus.$emit('setShowUserFalase', false, this.dataKey)
+      }
     },
     onClickRight () {},
     afterRead (file) {

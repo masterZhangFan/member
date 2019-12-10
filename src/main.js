@@ -26,8 +26,12 @@ import {
   DropdownItem,
   Uploader
 } from 'vant'
-Vue.use(Button).use(NavBar).use(Toast).use(Tab).use(Tabs).use(Field).use(Popup).use(DropdownMenu).use(DropdownItem).use(Uploader)
 
+// 引入全局方法
+import utils from './utils/utils'
+
+Vue.use(Button).use(NavBar).use(Toast).use(Tab).use(Tabs).use(Field).use(Popup).use(DropdownMenu).use(DropdownItem).use(Uploader)
+Vue.use(utils)
 Vue.config.productionTip = false
 
 new Vue({

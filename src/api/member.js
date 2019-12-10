@@ -8,9 +8,18 @@
  */
 import request from '@/utils/request'
 
-export function getList(params) {
+export function getList (params) {
   return request({
     url: '/member/memberInfos',
+    method: 'get',
+    params
+  })
+}
+
+// 不是代理的会员
+export function getMemberInfoNotIncludeDelegate (params) {
+  return request({
+    url: '/member/memberInfoNotIncludeDelegate',
     method: 'get',
     params
   })

@@ -2,19 +2,20 @@
   <div class="page-container-nobg fans-list-page">
     <Header title="代理列表"/>
     <section>
-      <div class="item-fans-box" v-for="(item,index) in 5" :key="index">
+      <div class="item-fans-box" v-for="(item,index) in agentList" :key="index">
         <img class="header-img" src="@/assets/images/qq (1).png" alt="">
         <div class="content-info">
           <div class="top">
-            <span class="phone">15928137520</span>
+            <span class="phone">{{item.phone}}</span>
             <span class="level">
               <img src="@/assets/images/icon_masonry.svg" alt="">
               初级会员
             </span>
           </div>
-          <div class="bottom">返现金额：100</div>
+          <div class="bottom">返现金额：{{item.cashBackAmount}}</div>
         </div>
       </div>
+      <div class="no-data-tips" v-if="!agentList.length">无代理数据，赶快去邀请把...</div>
     </section>
   </div>
 </template>
@@ -28,7 +29,7 @@ export default {
   },
   data () {
     return {
-
+      agentList: []
     }
   },
   created () {
@@ -40,7 +41,7 @@ export default {
     },
     getAgentList () {
       getAgentList().then(res => {
-
+        this.agentList = res.data
       })
     }
   }

@@ -5,7 +5,7 @@
         <img class="header-img" src="@/assets/images/qq (1).png" alt="">
         <div class="phone">{{userInfo.phone}}</div>
         <div class="level" @click="$router.push('/upgrade')">
-          <span><img src="@/assets/images/icon_masonry.svg" alt=""> 初级会员</span>
+          <span><img src="@/assets/images/icon_masonry.svg" alt=""> {{getLevelName(userInfo.memberLevel*1)}}</span>
           <img class="micon-up" src="@/assets/images/icon_masonry.svg" alt="">
         </div>
         <div class="rules">《会员权益和规则》</div>
@@ -13,21 +13,21 @@
       <div class="user-member-info">
         <div class="item-info" @click="$router.push('/fans-list')">
           <span class="title">粉丝</span>
-          <span class="value">335</span>
+          <span class="value">{{userInfo.fansNumber}}</span>
         </div>
         <div class="item-info">
           <span class="title">余额</span>
-          <span class="value">5.2</span>
+          <span class="value">{{userInfo.shoppingBalance}}</span>
           <span class="todo" @click="$router.push('/recharge')">充值</span>
         </div>
         <div class="item-info">
           <span class="title">可提现金额</span>
-          <span class="value">5.2</span>
+          <span class="value">{{userInfo.cash}}</span>
           <span class="todo" @click="$router.push('/take-out')">提现</span>
         </div>
         <div class="item-info">
           <span class="title">话费</span>
-          <span class="value">335</span>
+          <span class="value">{{userInfo.callBalance}}</span>
         </div>
       </div>
     </div>

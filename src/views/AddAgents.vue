@@ -12,11 +12,11 @@
     <section class="content-box">
       <section class="item-box">
         <span class="left">选择用户</span>
-        <MySelected type='1' @setValue='setValue' dataKey='userId' mypalceholder='请选着用户' />
+        <MySelected :dataList='memberNotAgentList' type='1' @setValue='setValue' dataKey='userId' mypalceholder='请选着用户' />
       </section>
       <section class="item-box">
         <span class="left">代理类别</span>
-        <MySelected type='1' @setValue='setValue' dataKey='delegateTypeId' mypalceholder='请选着代理类别' />
+        <MySelected :dataList='agentTypeList' type='1' @setValue='setValue' dataKey='delegateTypeId' mypalceholder='请选着代理类别' />
       </section>
       <section class="item-box">
         <span class="left">返现金额</span>
@@ -38,7 +38,7 @@
       </section>
       <section class="item-box">
         <span class="left">状　　态</span>
-        <MySelected type='1' @setValue='setValue' dataKey='delegateEnbale' mypalceholder='请选着状态' />
+        <MySelected :dataList='statusArr' type='1' @setValue='setValue' dataKey='delegateEnbale' mypalceholder='请选着状态' />
       </section>
     </section>
     <section class='bottom-box'>
@@ -49,7 +49,8 @@
 </template>
 
 <script>
-import { setAgentInfo } from '@/api/agent'
+import { setAgentInfo, getAgentTypeList } from '@/api/agent'
+import { getMemberInfoNotIncludeDelegate } from '@/api/member'
 import MySelected from '@/components/home/MySelected.vue'
 export default {
   components: {
@@ -57,6 +58,15 @@ export default {
   },
   data () {
     return {
+      memberNotAgentList: [],
+      agentTypeList: [],
+      statusArr: [{
+        label: '启用',
+        value: 1
+      }, {
+        label: '停用',
+        value: 0
+      }],
       value1: 0,
       option1: [
         { text: '全部商品', value: 0 },
@@ -75,11 +85,29 @@ export default {
       }
     }
   },
+  created () {
+    this.getParamsList()
+  },
   methods: {
+    getParamsList () {
+      getMemberInfoNotIncludeDelegate().then(res => {
+        this.memberNotAgentList = res.data || []
+      })
+      getAgentTypeList().then(res => {
+        let _dataList = res.data || []
+        _dataList.map(item => {
+          // item.
+        })
+        // this.agentTypeList
+      })
+    },
     login () {},
     submitAddAgent () {
-      this.$emit('setShow', false)
-      setAgentInfo()
+      setAgentInfo(this.addAgentInfoData).then(res => {
+        if (res.status * 1 === 0) {
+          this.$emit('setShow', false)
+        }
+      })
     },
     setValue (key, value) {
       this.addAgentInfoData[key] = value
