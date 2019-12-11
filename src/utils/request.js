@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2019-11-30 14:53:29
- * @LastEditTime: 2019-12-05 00:32:51
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2019-12-10 23:56:40
+ * @LastEditors: 尼大人
  * @Description: In User Settings Edit
  * @FilePath: \member-agent-manage\src\utils\request.js
  */
@@ -46,8 +46,10 @@ service.interceptors.response.use(
     const res = response.data
     if (res.status * 1 !== 0) {
       Toast(res.msg)
+      return Promise.reject(new Error(res.message || 'Error'))
+    } else {
+      return res
     }
-    return res
   },
   error => {
     Toast(error.message)

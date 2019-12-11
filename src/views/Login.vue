@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2019-12-01 22:32:10
- * @LastEditTime: 2019-12-06 00:42:24
+ * @LastEditTime: 2019-12-11 00:02:32
  * @LastEditors: 尼大人
  * @Description: In User Settings Edit
  * @FilePath: \member-agent-h5\src\views\Login.vue
@@ -12,7 +12,7 @@
       <div class="logo-img">
         <img class="logo" src="@/assets/images/qq (1).png" alt="">
       </div>
-      <div class="title">会员登录</div>
+      <div class="title">{{loginData.loginType*1==1?"会员登录":"代理登录"}}</div>
     </div>
     <div class="login-in-box">
       <div class="phone">
@@ -43,11 +43,15 @@ export default {
       timmer: '',
       loginData: {
         'code': '',
-        'loginType': 1,
+        'loginType': '',
         'openId': '',
         'phoneNumber': ''
       }
     }
+  },
+  created () {
+    this.loginData.loginType = this.$route.query.type || 2
+    console.log(this.$route.query.type)
   },
   mounted () {
     // this.authorization()
