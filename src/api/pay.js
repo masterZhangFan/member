@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2019-12-04 23:18:47
- * @LastEditTime: 2019-12-07 01:54:41
+ * @LastEditTime: 2019-12-11 23:10:27
  * @LastEditors: 尼大人
  * @Description: In User Settings Edit
  * @FilePath: \member\src\api\user.js
@@ -37,6 +37,14 @@ export function payConfig (params) {
 
 // 提现配置设置
 export function setUserCommissionSet () {
+  return request({
+    url: '/charge/setUserCommissionSet',
+    method: 'post'
+  })
+}
+
+// 余额充值下单
+export function setUserCommissionSet1 () {
   return request({
     url: '/charge/setUserCommissionSet',
     method: 'post'

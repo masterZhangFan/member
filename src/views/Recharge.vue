@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2019-12-02 23:54:53
- * @LastEditTime: 2019-12-07 02:05:47
+ * @LastEditTime: 2019-12-11 22:25:51
  * @LastEditors: 尼大人
  * @Description: In User Settings Edit
  * @FilePath: \member\src\views\UpgradeRecharge.vue
@@ -10,14 +10,14 @@
   <div class="page-container-bg recharge-page">
     <Header title="余额充值"/>
     <section class="content-box-top">
-      <div class="top-box">￥<span class="current-level">99</span></div>
+      <div class="top-box">￥<span class="current-level">{{userInfo.cash}}</span></div>
       <div class="money-tip">可用作某某某用途</div>
     </section>
     <section class="content-box-bottom">
       <div class="recharge-type-box">
         <h3>账户充值</h3>
         <div class="type-box">
-          <span @click="currentIndex=index" :class="{'item-type': true, 'item-active': index==currentIndex}" :key="index" v-for="(item,index) in 4">200元</span>
+          <span @click="currentIndex=index" :class="{'item-type': true, 'item-active': index==currentIndex}" :key="index" v-for="(item,index) in rechargeType">{{item.chargeAmount}}元</span>
         </div>
       </div>
       <div class="recharge-pay-type">
@@ -47,6 +47,7 @@
 </template>
 
 <script>
+import { getUserInfo } from '@/utils/storage'
 import { getChargeList } from '@/api/pay'
 import Header from '@/components/header/Index.vue'
 export default {
@@ -55,17 +56,22 @@ export default {
   },
   data () {
     return {
-      currentIndex: 0
+      currentIndex: 0,
+      userInfo: {},
+      rechargeType: [] // 可选充值列表
     }
+  },
+  created () {
+    this.userInfo = getUserInfo() || {}
   },
   mounted () {
     getChargeList().then(res => {
-
+      this.rechargeType = res.data
     })
   },
   methods: {
     recharge (name, title) {
-      this.$toast(title)
+
     }
   }
 }
