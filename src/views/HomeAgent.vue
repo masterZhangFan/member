@@ -4,8 +4,8 @@
       <div class="user-base-info">
         <img class="header-img" src="@/assets/images/qq (1).png" alt="">
         <div class="phone">{{userInfo.phone}}</div>
-        <div class="level" @click="$router.push('/upgrade')">
-          <span><img src="@/assets/images/icon_masonry.svg" alt=""> {{getLevelName(userInfo.memberLevel*1)}}</span>
+        <div class="level">
+          <span><img src="@/assets/images/icon_masonry.svg" alt=""> {{userType===1?getLevelName(userInfo.memberLevel*1):userInfo.delegate.delegateTypeName}}</span>
           <img class="micon-up" src="@/assets/images/icon_masonry.svg" alt="">
         </div>
         <div class="rules">《会员权益和规则》</div>
@@ -65,7 +65,7 @@
   </div>
 </template>
 <script>
-import { getUserInfo } from '@/utils/storage'
+import { getUserInfo, getUserType } from '@/utils/storage'
 import AddAgents from './AddAgents.vue'
 export default {
   components: {
@@ -74,11 +74,13 @@ export default {
   data () {
     return {
       show: false,
-      userInfo: {}
+      userInfo: {},
+      userType: ''
     }
   },
   created () {
     this.userInfo = getUserInfo() || {}
+    this.userType = getUserType()
   },
   methods: {
     setShow (flag) {

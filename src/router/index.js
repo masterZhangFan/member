@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2019-12-01 11:09:27
- * @LastEditTime: 2019-12-05 00:38:02
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2019-12-12 22:38:42
+ * @LastEditors: 尼大人
  * @Description: In User Settings Edit
  * @FilePath: \member-agent-h5\src\router\index.js
  */
@@ -26,9 +26,14 @@ export default new Router({
       component: () => lazyLoadView(import('@/views/Login.vue'))
     },
     {
-      path: '/home',
-      name: 'home',
-      component: () => lazyLoadView(import('@/views/Home.vue'))
+      path: '/home-member',
+      name: 'HomeMember',
+      component: () => lazyLoadView(import('@/views/HomeMember.vue'))
+    },
+    {
+      path: '/home-agent',
+      name: 'HomeAgent',
+      component: () => lazyLoadView(import('@/views/HomeAgent.vue'))
     },
     {
       path: '/fans-list',

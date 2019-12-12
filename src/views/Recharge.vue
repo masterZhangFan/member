@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2019-12-02 23:54:53
- * @LastEditTime: 2019-12-11 22:25:51
+ * @LastEditTime: 2019-12-12 23:54:59
  * @LastEditors: 尼大人
  * @Description: In User Settings Edit
  * @FilePath: \member\src\views\UpgradeRecharge.vue
@@ -17,7 +17,7 @@
       <div class="recharge-type-box">
         <h3>账户充值</h3>
         <div class="type-box">
-          <span @click="currentIndex=index" :class="{'item-type': true, 'item-active': index==currentIndex}" :key="index" v-for="(item,index) in rechargeType">{{item.chargeAmount}}元</span>
+          <span @click="currentIndex=index" :class="{'item-type': true, 'item-active': index==currentIndex}" :key="index" v-for="(item,index) in rechargeType">{{item.chargeDesc}}</span>
         </div>
       </div>
       <div class="recharge-pay-type">
@@ -39,7 +39,7 @@
         </ul>
       </div>
       <div class="recharge-btn-box">
-        <van-button class="recharge-btn" round type="primary" size="large" @click="recharge">立 即 充 值</van-button>
+        <van-button class="recharge-btn" round type="primary" size="large" @click="createOrder">立 即 充 值</van-button>
       </div>
 
     </section>
@@ -48,7 +48,7 @@
 
 <script>
 import { getUserInfo } from '@/utils/storage'
-import { getChargeList } from '@/api/pay'
+import { getChargeList, createOrder } from '@/api/pay'
 import Header from '@/components/header/Index.vue'
 export default {
   components: {
@@ -70,8 +70,14 @@ export default {
     })
   },
   methods: {
-    recharge (name, title) {
-
+    createOrder (paychargeIdFor) {
+      createOrder({
+        code: '',
+        payFor: 2,
+        paychargeIdFor: this.rechargeType[this.currentIndex].chargeId
+      }).then(res => {
+        this.$toast('下单成功！')
+      })
     }
   }
 }
@@ -128,14 +134,15 @@ export default {
         @include flex(space-between);
         flex-wrap: wrap;
         .item-type{
+          @include flex;
           width: 48%;
           height: px2rem(180);
           text-align: center;
-          line-height: px2rem(180);
+          line-height: px2rem(60);
           border: 1px solid rgb(228,222,219);
           border-radius: px2rem(8);
           margin-bottom: px2rem(20);
-          font-size: px2rem(40);
+          font-size: px2rem(36);
           &.item-active{
             border-color: $ft--color;
             color:  $ft--color;

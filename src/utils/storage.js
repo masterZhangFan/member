@@ -1,5 +1,22 @@
+/*
+ * @Author: 尼大人
+ * @Date: 2019-12-10 23:37:26
+ * @LastEditors: 尼大人
+ * @LastEditTime: 2019-12-12 22:28:40
+ */
 const USER_INFO = 'userInfo'
+const USER_TYPE = 'userType'
 const CURRENT_ROUTER = 'currentRouter'
+
+// 设置登录类型： 会员1 or 代理2
+export const setUserType = (userType) => {
+  sessionStorage.setItem(USER_TYPE, userType)
+}
+
+// 获取登录类型： 会员1 or 代理2
+export const getUserType = () => {
+  return sessionStorage.getItem(USER_TYPE)
+}
 
 /**
  * 获取用户信息

@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2019-12-02 23:54:53
- * @LastEditTime: 2019-12-07 02:03:03
+ * @LastEditTime: 2019-12-13 00:54:46
  * @LastEditors: 尼大人
  * @Description: In User Settings Edit
  * @FilePath: \member\src\views\UpgradeRecharge.vue
@@ -13,15 +13,27 @@
       <div class="recharge-page-bottom">
         <ul>
           <li>
-            <span class="left-title">姓名</span>
             <div class="right-box">
-              <van-field v-model="value" placeholder="请输入姓名"/>
+              <van-field
+                v-model="userCommissionData.alipayRealname"
+                required
+                clearable
+                label="姓名"
+                placeholder="请输入用户名"
+                @click-right-icon="$toast('question')"
+              />
             </div>
           </li>
           <li>
-            <span class="left-title">支付宝账号</span>
             <div class="right-box">
-              <van-field v-model="value" placeholder="请输入支付宝账号"/>
+              <van-field
+                  v-model="userCommissionData.alipayAccount"
+                  required
+                  clearable
+                  label="支付宝账号"
+                  placeholder="请输入支付宝账号"
+                  @click-right-icon="$toast('question')"
+                />
             </div>
           </li>
         </ul>
@@ -35,7 +47,7 @@
 </template>
 
 <script>
-import { setUserCommissionSet } from '@/api/pay'
+import { setUserCommissionSet, getUserCommissionSet } from '@/api/pay'
 import Header from '@/components/header/Index.vue'
 export default {
   components: {
@@ -43,16 +55,25 @@ export default {
   },
   data () {
     return {
-      value: ''
+      userCommissionData: {
+        alipayRealname: '',
+        alipayAccount: ''
+      }
     }
+  },
+  created () {
+    getUserCommissionSet().then(res => {
+      if (!res.data) {
+        this.$toast('支付宝信息为空，请先设置账号信息')
+      } else {
+        this.userCommissionData = res.data
+      }
+    })
   },
   methods: {
     submitApply () {
-      setUserCommissionSet({
-        alipayRealname: '',
-        alipayAccount: ''
-      }).then(res => {
-
+      setUserCommissionSet(this.userCommissionData).then(res => {
+        this.$toast('设置成功')
       })
     }
   }

@@ -1,16 +1,16 @@
 <!--
  * @Author: your name
  * @Date: 2019-12-02 23:54:53
- * @LastEditTime: 2019-12-07 01:58:32
+ * @LastEditTime: 2019-12-13 00:08:59
  * @LastEditors: 尼大人
  * @Description: In User Settings Edit
  * @FilePath: \member\src\views\UpgradeRecharge.vue
  -->
 <template>
   <div class="page-container-bg recharge-page">
-    <Header title="会员升级"/>
+    <Header title="账户提现"/>
     <section class="content-box-top">
-      <div class="top-box">￥<span class="current-level">99</span></div>
+      <div class="top-box">￥<span class="current-level">{{userInfo.cash}}</span></div>
       <div class="money-tip">每月25号后可提现上月内确认收货的订单佣金</div>
     </section>
     <section class="content-box-bottom">
@@ -19,7 +19,7 @@
           <li>
             <span class="left-title">提现金额</span>
             <div class="right-box">
-              <van-field v-model="value" placeholder="请输入提现金额" />
+              <van-field v-model="value" type='number' @input="inputValue" placeholder="请输入提现金额" />
             </div>
           </li>
           <li>
@@ -32,7 +32,7 @@
         </ul>
       </div>
       <div class="recharge-btn-box">
-        <van-button class="recharge-btn" round type="primary" size="large" @click="userCommissionApplay">提 交 申 请</van-button>
+        <van-button class="recharge-btn" round type="primary" size="large" :disabled='!value' @click="userCommissionApplay">提 交 申 请</van-button>
       </div>
 
     </section>
@@ -41,6 +41,7 @@
 
 <script>
 import { userCommissionApplay } from '@/api/pay'
+import { getUserInfo } from '@/utils/storage'
 import Header from '@/components/header/Index.vue'
 export default {
   components: {
@@ -48,8 +49,12 @@ export default {
   },
   data () {
     return {
-      value: ''
+      value: '',
+      userInfo: {}
     }
+  },
+  created () {
+    this.userInfo = getUserInfo() || {}
   },
   methods: {
     userCommissionApplay () {
@@ -59,6 +64,12 @@ export default {
       }).then(res => {
 
       })
+    },
+    inputValue () {
+      if (this.value * 1 > this.userInfo.cash * 1) {
+        this.value = this.userInfo.cash
+        this.$toast('提现金额不能大于可取金额')
+      }
     }
   }
 }

@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2019-12-04 23:18:47
- * @LastEditTime: 2019-12-05 22:31:05
+ * @LastEditTime: 2019-12-13 01:00:54
  * @LastEditors: 尼大人
  * @Description: In User Settings Edit
  * @FilePath: \member\src\api\user.js
@@ -24,11 +24,10 @@ export function login (data) {
   })
 }
 
-export function getInfo (token) {
+export function getInfo () {
   return request({
-    url: '/user/info',
-    method: 'get',
-    params: { token }
+    url: '/user/getUserInfo',
+    method: 'get'
   })
 }
 

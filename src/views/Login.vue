@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2019-12-01 22:32:10
- * @LastEditTime: 2019-12-11 00:02:32
+ * @LastEditTime: 2019-12-12 22:41:13
  * @LastEditors: 尼大人
  * @Description: In User Settings Edit
  * @FilePath: \member-agent-h5\src\views\Login.vue
@@ -32,7 +32,7 @@
 </template>
 <script>
 import { login, getPhoneCode } from '@/api/user'
-import { setUserInfo } from '@/utils/storage'
+import { setUserInfo, setUserType } from '@/utils/storage'
 
 export default {
   data () {
@@ -51,7 +51,7 @@ export default {
   },
   created () {
     this.loginData.loginType = this.$route.query.type || 2
-    console.log(this.$route.query.type)
+    setUserType(this.$route.query.type)
   },
   mounted () {
     // this.authorization()
@@ -65,7 +65,11 @@ export default {
     login () {
       login(this.loginData).then(res => {
         setUserInfo(res.data)
-        this.$router.push('/home')
+        if (this.$route.query.type === 1) {
+          this.$router.push('/home-member')
+        } else {
+          this.$router.push('/home-agent')
+        }
       })
     },
     getPhoneCode () {

@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2019-12-04 23:18:47
- * @LastEditTime: 2019-12-11 23:10:27
+ * @LastEditTime: 2019-12-13 00:47:56
  * @LastEditors: 尼大人
  * @Description: In User Settings Edit
  * @FilePath: \member\src\api\user.js
@@ -35,18 +35,27 @@ export function payConfig (params) {
   })
 }
 
+// 提现配置获取
+export function getUserCommissionSet () {
+  return request({
+    url: '/charge/getUserCommissionSet',
+    method: 'get'
+  })
+}
 // 提现配置设置
-export function setUserCommissionSet () {
+export function setUserCommissionSet (data) {
   return request({
     url: '/charge/setUserCommissionSet',
-    method: 'post'
+    method: 'post',
+    data
   })
 }
 
 // 余额充值下单
-export function setUserCommissionSet1 () {
+export function createOrder (params) {
   return request({
-    url: '/charge/setUserCommissionSet',
-    method: 'post'
+    url: '/charge/orders',
+    method: 'get',
+    params
   })
 }
