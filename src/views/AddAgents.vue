@@ -91,14 +91,26 @@ export default {
   methods: {
     getParamsList () {
       getMemberInfoNotIncludeDelegate().then(res => {
-        this.memberNotAgentList = res.data || []
+        if (res.data.length) {
+          this.memberNotAgentList = res.data.map(item => {
+            item._label = item.nickname
+            item._value = item.userId
+            return item
+          })
+        } else {
+          this.memberNotAgentList = []
+        }
       })
       getAgentTypeList().then(res => {
-        let _dataList = res.data || []
-        _dataList.map(item => {
-          // item.
-        })
-        // this.agentTypeList
+        if (res.data.length) {
+          this.agentTypeList = res.data.map(item => {
+            item._label = item.delegateTypeName
+            item._value = item.delegateTypeId
+            return item
+          })
+        } else {
+          this.agentTypeList = []
+        }
       })
     },
     login () {},
