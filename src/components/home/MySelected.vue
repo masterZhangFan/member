@@ -10,7 +10,7 @@
     <template v-if="type*1==1">
       <van-field @click='setShowUserTrue' readonly v-model="value" :placeholder="mypalceholder"/>
       <div v-show="showUser" class="selecte-item-box">
-        <span @click="selectedThis" v-for="(item,index) in dataList" :key="index">12356</span>
+        <span @click="selectedThis(item)" v-for="(item,index) in dataList" :key="index">{{item._label}}</span>
         <span v-if="!dataList.length" @click="selectedThis">暂无数据...</span>
       </div>
     </template>
@@ -71,11 +71,13 @@ export default {
       var formData = new FormData()
       formData.append('key1', file.file)
       fileUpload(formData).then(res => {
-        this.$emit('setValue', this.dataKey, res.data)
+        this.value = res.data[0].name
+        this.$emit('setValue', this.dataKey, res.data[0].path)
       })
     },
-    selectedThis (id) {
-      this.$emit('setValue', this.dataKey, id)
+    selectedThis (obj) {
+      this.value = obj._label
+      this.$emit('setValue', this.dataKey, obj._value)
       this.showUser = false
     }
   }

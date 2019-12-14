@@ -61,11 +61,11 @@ export default {
       memberNotAgentList: [],
       agentTypeList: [],
       statusArr: [{
-        label: '启用',
-        value: 1
+        _label: '启用',
+        _value: true
       }, {
-        label: '停用',
-        value: 0
+        _label: '停用',
+        _value: false
       }],
       value1: 0,
       option1: [
