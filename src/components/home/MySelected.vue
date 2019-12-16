@@ -8,9 +8,9 @@
 <template>
   <div class="selected-wrap">
     <template v-if="type*1==1">
-      <van-field @click='setShowUserTrue' readonly v-model="value" :placeholder="mypalceholder"/>
+      <van-field @click='setShowUserTrue' :readonly='readonly' v-model="value" :placeholder="mypalceholder"/>
       <div v-show="showUser" class="selecte-item-box">
-        <span @click="selectedThis(item)" v-for="(item,index) in dataList" :key="index">{{item._label}}</span>
+        <span @click="selectedThis(item)" v-for="(item,index) in filterDataList" :key="index">{{item._label}}</span>
         <span v-if="!dataList.length" @click="selectedThis">暂无数据...</span>
       </div>
     </template>
@@ -41,6 +41,17 @@ export default {
     dataList: {
       type: Array,
       default: () => []
+    },
+    readonly: {
+      type: Boolean,
+      default: true
+    }
+  },
+  computed: {
+    filterDataList: function (params) {
+      return this.dataList.filter(item => {
+        return item._label.indexOf(this.value) !== -1
+      })
     }
   },
   data () {

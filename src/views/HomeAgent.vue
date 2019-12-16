@@ -2,13 +2,13 @@
   <div class="page-container home-page">
     <div class="home-page-top">
       <div class="user-base-info">
-        <img class="header-img" src="@/assets/images/qq (1).png" alt="">
+        <img class="header-img" src="@/assets/images/app-logo.png" alt="">
         <div class="phone">{{userInfo.phone}}</div>
         <div class="level">
           <span><img src="@/assets/images/icon_masonry.svg" alt=""> {{userType===1?getLevelName(userInfo.memberLevel*1):userInfo.delegate.delegateTypeName}}</span>
           <img class="micon-up" src="@/assets/images/icon_masonry.svg" alt="">
         </div>
-        <div class="rules">《会员权益和规则》</div>
+        <div class="rules" @click="showRule=true">《会员权益和规则》</div>
       </div>
       <div class="user-member-info">
         <div class="item-info" @click="$router.push('/fans-list')">
@@ -62,18 +62,27 @@
       v-model="show">
       <AddAgents @setShow='setShow'/>
     </van-popup>
+    <van-popup
+      v-model="showRule"
+      position="bottom"
+      :style="{ height: '60%' }">
+      <Rules/>
+    </van-popup>
   </div>
 </template>
 <script>
 import { getUserInfo, getUserType } from '@/utils/storage'
 import AddAgents from './AddAgents.vue'
+import Rules from '@/components/rules.vue'
 export default {
   components: {
-    AddAgents
+    AddAgents,
+    Rules
   },
   data () {
     return {
       show: false,
+      showRule: false,
       userInfo: {},
       userType: ''
     }
@@ -85,9 +94,11 @@ export default {
   methods: {
     setShow (flag) {
       this.show = flag
+    },
+    closed () {
+      this.show = false
     }
   }
-
 }
 </script>
 

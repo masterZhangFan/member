@@ -12,7 +12,7 @@
     <section class="content-box">
       <section class="item-box">
         <span class="left">选择用户</span>
-        <MySelected :dataList='memberNotAgentList' type='1' @setValue='setValue' dataKey='userId' mypalceholder='请选着用户' />
+        <MySelected :dataList='memberNotAgentList' :readonly='false' type='1' @setValue='setValue' dataKey='userId' mypalceholder='请选着用户' />
       </section>
       <section class="item-box">
         <span class="left">代理类别</span>
@@ -117,6 +117,7 @@ export default {
     submitAddAgent () {
       setAgentInfo(this.addAgentInfoData).then(res => {
         if (res.status * 1 === 0) {
+          this.$toast('添加成功')
           this.$emit('setShow', false)
         }
       })

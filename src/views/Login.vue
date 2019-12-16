@@ -10,7 +10,7 @@
   <div class="login-box">
     <div class="login-logo-box">
       <div class="logo-img">
-        <img class="logo" src="@/assets/images/qq (1).png" alt="">
+        <img class="logo" src="@/assets/images/app-logo.png" alt="">
       </div>
       <div class="title">{{loginData.loginType*1==1?"会员登录":"代理登录"}}</div>
     </div>
