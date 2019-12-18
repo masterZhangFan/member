@@ -9,48 +9,7 @@
   <div class="rule-content-box">
     <h3 class="title w100">会员权益和规则</h3>
     <div class="content-box w100">
-      <div>12345</div>
-      <div>12345</div>
-      <div>12345</div>
-      <div>12345</div>
-      <div>12345</div>
-      <div>12345</div>
-      <div>12345</div>
-      <div>12345</div>
-      <div>12345</div>
-      <div>12345</div>
-      <div>12345</div>
-      <div>12345</div>
-      <div>12345</div>
-      <div>12345</div>
-      <div>12345</div>
-      <div>12345</div>
-      <div>12345</div>
-      <div>12345</div>
-      <div>12345</div>
-      <div>12345</div>
-      <div>12345</div>
-      <div>12345</div>
-      <div>12345</div>
-      <div>12345</div>
-      <div>12345</div>
-      <div>12345</div>
-      <div>12345</div>
-      <div>12345</div>
-      <div>12345</div>
-      <div>12345</div>
-      <div>12345</div>
-      <div>12345</div>
-      <div>12345</div>
-      <div>12345</div>
-      <div>12345</div>
-      <div>12345</div>
-      <div>12345</div>
-      <div>12345</div>
-      <div>12345</div>
-      <div>12345</div>
-      <div>12345</div>
-      <div>12345</div>
+      <div v-html="rules"></div>
     </div>
     <div class="btn-box w100">
       <van-button class="invite-btn" round type="primary" size="large" @click="$router.push('/share')">知道了</van-button>
@@ -70,12 +29,12 @@ export default {
   },
   data () {
     return {
-      // show: false
+      rules: ''
     }
   },
   created () {
     getSysConfig().then(res => {
-
+      this.rules = res.data.delegateRules
     })
   },
   methods: {
@@ -105,6 +64,7 @@ export default {
       padding: px2rem(30) 0;
     }
     .content-box{
+      padding: px2rem(0) px2rem(40);
       flex: 1;
       overflow: scroll;
     }

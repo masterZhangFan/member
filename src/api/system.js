@@ -27,10 +27,10 @@ export function setSysConfig (data) {
 }
 
 // 获取微信配置参数
-export function getPayConfig (data) {
+export function getPayConfig (params) {
   return request({
     url: '/charge/payConfig',
     method: 'get',
-    data
+    params
   })
 }
