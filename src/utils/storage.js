@@ -2,10 +2,11 @@
  * @Author: 尼大人
  * @Date: 2019-12-10 23:37:26
  * @LastEditors: 尼大人
- * @LastEditTime: 2019-12-12 22:28:40
+ * @LastEditTime: 2019-12-18 22:41:06
  */
 const USER_INFO = 'userInfo'
 const USER_TYPE = 'userType'
+const WX_CODE = 'wxCode'
 const CURRENT_ROUTER = 'currentRouter'
 
 // 设置登录类型： 会员1 or 代理2
@@ -41,22 +42,17 @@ export const deleteUserInfo = () => {
   return sessionStorage.removeItem(USER_INFO)
 }
 
-/************************************************************************************
- * 关于路由SessionStorage储存
- */
-
 /**
- * 获取路由SessionStorage储存
- * @returns {string}
+ * 设置微信code
+ * @param {object} userInfo
  */
-export const getSessionStorage = () => {
-  return sessionStorage.getItem(CURRENT_ROUTER)
+export const setWxCode = (code) => {
+  return sessionStorage.setItem(WX_CODE, code)
 }
 
 /**
- * 设置路由SessionStorage储存
- * @param {string}
+ * 获取微信code
  */
-export const setSessionStorage = (routeUrl) => {
-  sessionStorage.setItem(CURRENT_ROUTER, routeUrl)
+export const getWxCode = () => {
+  return sessionStorage.getItem(WX_CODE)
 }

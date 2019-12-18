@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2019-12-02 23:54:53
- * @LastEditTime: 2019-12-12 23:54:59
+ * @LastEditTime: 2019-12-18 22:50:17
  * @LastEditors: 尼大人
  * @Description: In User Settings Edit
  * @FilePath: \member\src\views\UpgradeRecharge.vue
@@ -11,13 +11,13 @@
     <Header title="余额充值"/>
     <section class="content-box-top">
       <div class="top-box">￥<span class="current-level">{{userInfo.cash}}</span></div>
-      <div class="money-tip">可用作某某某用途</div>
+      <div class="money-tip">{{rechargeType.length?rechargeType[currentIndex].chargeDesc:'--'}}</div>
     </section>
     <section class="content-box-bottom">
       <div class="recharge-type-box">
         <h3>账户充值</h3>
         <div class="type-box">
-          <span @click="currentIndex=index" :class="{'item-type': true, 'item-active': index==currentIndex}" :key="index" v-for="(item,index) in rechargeType">{{item.chargeDesc}}</span>
+          <span @click="currentIndex=index" :class="{'item-type': true, 'item-active': index==currentIndex}" :key="index" v-for="(item,index) in rechargeType">{{item.chargeAmount}}元</span>
         </div>
       </div>
       <div class="recharge-pay-type">
@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import { getUserInfo } from '@/utils/storage'
+import { getUserInfo, getWxCode } from '@/utils/storage'
 import { getChargeList, createOrder } from '@/api/pay'
 import Header from '@/components/header/Index.vue'
 export default {
@@ -72,28 +72,31 @@ export default {
   methods: {
     createOrder (paychargeIdFor) {
       createOrder({
-        code: '',
+        code: getWxCode(),
         payFor: 2,
-        paychargeIdFor: this.rechargeType[this.currentIndex].chargeId
+        chargeId: this.rechargeType[this.currentIndex].chargeId
       }).then(res => {
         this.$toast('下单成功！')
-        this.wechatPay()
+        this.wechatPay(res.data)
       })
     },
     wechatPay (cofigObj) {
       const onBridgeReady = () => {
         window.WeixinJSBridge.invoke('getBrandWCPayRequest', {
-          'appId': 'wx2421b1c4370ec43b', // 公众号名称，由商户传入
-          'timeStamp': '1395712654', // 时间戳，自1970年以来的秒数
-          'nonceStr': 'e61463f8efa94090b1f366cccfbbb444', // 随机串
-          'package': 'prepay_id=u802345jgfjsdfgsdg888',
-          'signType': 'MD5', // 微信签名方式：
-          'paySign': '70EA570631E4BB79628FBCA90534C63FF7FADD89' // 微信签名
+          'appId': cofigObj.appId, // 公众号名称，由商户传入
+          'timeStamp': cofigObj.timeStamp, // 时间戳，自1970年以来的秒数
+          'nonceStr': cofigObj.nonceStr, // 随机串
+          'package': cofigObj.package,
+          'signType': cofigObj.signType, // 微信签名方式：
+          'paySign': cofigObj.paySign // 微信签名
         },
         function (res) {
-          if (res.err_msg == 'get_brand_wcpay_request:ok') {
+          if (res.err_msg === 'get_brand_wcpay_request:ok') {
           // 使用以上方式判断前端返回,微信团队郑重提示：
             // res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。
+            this.$toast('支付成功')
+          } else {
+            this.$toast('支付失败')
           }
         })
       }

@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2019-12-01 22:32:10
- * @LastEditTime: 2019-12-12 22:41:13
+ * @LastEditTime: 2019-12-18 22:41:54
  * @LastEditors: 尼大人
  * @Description: In User Settings Edit
  * @FilePath: \member-agent-h5\src\views\Login.vue
@@ -32,7 +32,7 @@
 </template>
 <script>
 import { login, getPhoneCode } from '@/api/user'
-import { setUserInfo, setUserType } from '@/utils/storage'
+import { setUserInfo, setUserType, setWxCode } from '@/utils/storage'
 
 export default {
   data () {
@@ -54,13 +54,17 @@ export default {
     setUserType(this.$route.query.type)
   },
   mounted () {
-    // this.authorization()
+    if (!this.$route.query.code) {
+      this.authorization()
+    } else {
+      setWxCode(this.$route.query.code)
+    }
   },
   methods: {
     authorization () {
-      // let url = window.encodeURIComponent('http://m.9000ji.com/recommend')
+      let url = window.encodeURIComponent(window.location.href)
       // gh_ca7d929dcac2
-      window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxd812cd5b3a0f2199&redirect_uri=''&response_type=code&scope=snsapi_userinfo&state=WX&connect_redirect=1#wechat_redirect`
+      window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxd812cd5b3a0f2199&redirect_uri=${url}&response_type=code&scope=snsapi_userinfo&state=WX&connect_redirect=1#wechat_redirect`
     },
     login () {
       login(this.loginData).then(res => {
