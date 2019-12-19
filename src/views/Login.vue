@@ -1,8 +1,8 @@
 <!--
  * @Author: your name
  * @Date: 2019-12-01 22:32:10
- * @LastEditTime: 2019-12-18 22:41:54
- * @LastEditors: 尼大人
+ * @LastEditTime : 2019-12-19 21:45:36
+ * @LastEditors  : 尼大人
  * @Description: In User Settings Edit
  * @FilePath: \member-agent-h5\src\views\Login.vue
  -->
@@ -32,6 +32,7 @@
 </template>
 <script>
 import { login, getPhoneCode } from '@/api/user'
+import { getOpenId } from '@/api/system'
 import { setUserInfo, setUserType, setWxCode } from '@/utils/storage'
 
 export default {
@@ -58,6 +59,13 @@ export default {
       this.authorization()
     } else {
       setWxCode(this.$route.query.code)
+      // 获取openID
+      getOpenId({
+        code: this.$route.query.code
+      }).then(res => {
+        console.log(res)
+        this.loginData.openId = res.data.openid
+      })
     }
   },
   methods: {

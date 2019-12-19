@@ -2,8 +2,8 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-30 12:08:54
- * @LastEditTime: 2019-12-18 21:54:06
- * @LastEditors: 尼大人
+ * @LastEditTime : 2019-12-19 21:40:13
+ * @LastEditors  : 尼大人
  -->
 <template>
   <div id="app">
@@ -15,13 +15,14 @@
 
 <script>
 import { getPayConfig } from '@/api/system'
+import { setWxConfig } from '@/utils/storage'
 export default {
   created () {
     getPayConfig({
       // url: 'http://mp.scxcyb.cn/login?type=2'
       url: window.location.href
     }).then(res => {
-      console.log(res.data.appid)
+      setWxConfig(res.data)
       window.wx.config({
         debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
         appId: res.data.appid, // 必填，公众号的唯一标识
