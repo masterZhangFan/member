@@ -2,10 +2,13 @@
  * @Author: 尼大人
  * @Date: 2019-12-10 23:37:26
  * @LastEditors  : 尼大人
- * @LastEditTime : 2019-12-19 21:38:03
+ * @LastEditTime : 2019-12-21 00:35:30
  */
+import Cookies from 'js-cookie'
+
 const USER_INFO = 'userInfo'
 const USER_TYPE = 'userType'
+const TOKEN = 'my_token'
 const CURRENT_ROUTER = 'currentRouter'
 
 // 设置登录类型： 会员1 or 代理2
@@ -39,4 +42,19 @@ export const setUserInfo = (userInfo) => {
  */
 export const deleteUserInfo = () => {
   return localStorage.removeItem(USER_INFO)
+}
+
+/**
+ * 设置TOKEN
+ * @param {object} TOKEN
+ */
+export const setToken = (token) => {
+  return Cookies.set(TOKEN, token)
+}
+
+/**
+ * 获取TOKEN
+ */
+export const getToken = () => {
+  return Cookies.get(TOKEN)
 }

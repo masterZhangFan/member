@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2019-11-30 14:53:29
- * @LastEditTime: 2019-12-10 23:56:40
- * @LastEditors: 尼大人
+ * @LastEditTime : 2019-12-21 00:42:23
+ * @LastEditors  : 尼大人
  * @Description: In User Settings Edit
  * @FilePath: \member-agent-manage\src\utils\request.js
  */
@@ -11,7 +11,7 @@ import store from '@/store'
 // import { getToken } from '@/utils/auth'
 
 import { Toast } from 'vant'
-import { getUserInfo } from '@/utils/storage'
+import { getToken } from '@/utils/storage'
 
 // create an axios instance
 console.log(process.env.VUE_APP_BASE_API)
@@ -28,8 +28,8 @@ service.interceptors.request.use(
       forbidClick: true,
       duration: 0
     })
-    if (getUserInfo()) {
-      config.headers['token'] = getUserInfo().token
+    if (getToken()) {
+      config.headers['token'] = getToken() || store.state.token || null
     }
     return config
   },

@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2019-12-04 23:18:47
- * @LastEditTime: 2019-12-13 01:00:54
- * @LastEditors: 尼大人
+ * @LastEditTime : 2019-12-21 00:03:42
+ * @LastEditors  : 尼大人
  * @Description: In User Settings Edit
  * @FilePath: \member\src\api\user.js
  */
@@ -51,6 +51,15 @@ export function getIndirectFanWithUserId (params) {
 export function getDirectlyFanWithUserId (params) {
   return request({
     url: '/user/getDirectlyFanWithUserId',
+    method: 'get',
+    params: params
+  })
+}
+
+// 获取直属粉丝
+export function getShareParams (params) {
+  return request({
+    url: '/shareTemp/shareInfo',
     method: 'get',
     params: params
   })

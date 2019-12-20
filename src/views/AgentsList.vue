@@ -9,7 +9,7 @@
             <span class="phone">{{item.phone}}</span>
             <span class="level">
               <img src="@/assets/images/icon_masonry.svg" alt="">
-              初级会员
+              item.delegateTypeName
             </span>
           </div>
           <div class="bottom">返现金额：{{item.cashBackAmount}}</div>

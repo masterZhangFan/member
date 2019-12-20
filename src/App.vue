@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-30 12:08:54
- * @LastEditTime : 2019-12-19 21:40:13
+ * @LastEditTime : 2019-12-20 23:12:28
  * @LastEditors  : 尼大人
  -->
 <template>
@@ -16,12 +16,12 @@
 <script>
 import { mapActions } from 'vuex'
 import { getPayConfig } from '@/api/system'
-import { getUserInfo } from '@/utils/storage'
+import { getUserInfo, getUserType } from '@/utils/storage'
 export default {
   created () {
     if (getUserInfo()) {
-      console.log(123)
       this.setUserInfo(getUserInfo())
+      this.setUserType(getUserType())
     }
     getPayConfig({
       // url: 'http://mp.scxcyb.cn/login?type=2'
@@ -41,7 +41,7 @@ export default {
 
   },
   methods: {
-    ...mapActions(['setUserInfo'])
+    ...mapActions(['setUserInfo', 'setUserType'])
   }
 }
 </script>

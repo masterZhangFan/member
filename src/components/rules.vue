@@ -1,8 +1,8 @@
 <!--
  * @Author: 尼大人
  * @Date: 2019-12-05 00:54:51
- * @LastEditors: 尼大人
- * @LastEditTime: 2019-12-05 01:20:25
+ * @LastEditors  : 尼大人
+ * @LastEditTime : 2019-12-21 01:13:34
  -->
 
 <template>
@@ -25,18 +25,18 @@ export default {
     show: {
       type: Boolean,
       default: false
+    },
+    rules: {
+      type: String,
+      default: ''
     }
   },
   data () {
     return {
-      rules: ''
+
     }
   },
-  created () {
-    getSysConfig().then(res => {
-      this.rules = res.data.delegateRules
-    })
-  },
+  created () {},
   methods: {
     onClickLeft () {
       this.$router.back()

@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2019-12-01 22:32:10
- * @LastEditTime : 2019-12-19 21:45:36
+ * @LastEditTime : 2019-12-21 01:03:02
  * @LastEditors  : 尼大人
  * @Description: In User Settings Edit
  * @FilePath: \member-agent-h5\src\views\Login.vue
@@ -12,7 +12,7 @@
       <div class="logo-img">
         <img class="logo" src="@/assets/images/app-logo.png" alt="">
       </div>
-      <div class="title">{{loginData.loginType*1==1?"会员登录":"代理登录"}}</div>
+      <div class="title">{{$route.query.type * 1==1?"会员登录":"代理登录"}}</div>
     </div>
     <div class="login-in-box">
       <div class="phone">
@@ -31,10 +31,10 @@
   </div>
 </template>
 <script>
-import { mapActions } from 'vuex'
-import { login, getPhoneCode } from '@/api/user'
+import { mapActions, mapState } from 'vuex'
+import { login, getPhoneCode, getUserData } from '@/api/user'
 import { getOpenId } from '@/api/system'
-import { setUserInfo, setUserType, getUserType } from '@/utils/storage'
+import { setUserInfo, setUserType, getUserType, setToken, getToken } from '@/utils/storage'
 
 export default {
   data () {
@@ -51,6 +51,9 @@ export default {
       }
     }
   },
+  computed: mapState([
+    'token'
+  ]),
   created () {
     this.isNeedLogin()
   },
@@ -58,7 +61,7 @@ export default {
 
   },
   methods: {
-    ...mapActions(['setUserInfo', 'setUserType']),
+    ...mapActions(['setUserInfo', 'setUserType', 'setToken']),
     authorization () {
       let url = window.encodeURIComponent(window.location.href)
       // gh_ca7d929dcac2
@@ -71,30 +74,38 @@ export default {
         if (!this.$route.query.code) {
           // this.authorization()
         }
-        this.loginData.loginType = this.$route.query.type
-        setUserType(this.$route.query.type)// 存本地
-        this.setUserType(this.$route.query.type)// vuex
         getOpenId({
           code: this.$route.query.code
         }).then(res => {
           this.loginData.openId = res.data
         })
       } else {
-        if (this.$route.query.type * 1 === 1) {
-          this.$router.replace('/home-member')
-        } else {
-          this.$router.replace('/home-agent')
+        if (getToken() && getToken() !== 'null') {
+          getUserData().then(res => {
+            setUserInfo(res.data) // 存本地
+            this.setUserInfo(res.data) // 存vuex
+            if (this.$route.query.type * 1 === 1) {
+              this.$router.replace('/home-member')
+            } else {
+              this.$router.replace('/home-agent')
+            }
+          })
         }
       }
     },
     login () {
+      this.loginData.loginType = this.$route.query.type
+      setUserType(this.$route.query.type)// 存本地
+      this.setUserType(this.$route.query.type)// vuex
       login(this.loginData).then(res => {
         setUserInfo(res.data) // 存本地
         this.setUserInfo(res.data) // 存vuex
-        if (this.$route.query.type === 1) {
-          this.$router.push('/home-member')
+        setToken(res.data.token)
+        this.setToken(res.data.token) // 存vuex
+        if (this.$route.query.type * 1 === 1) {
+          this.$router.replace('/home-member')
         } else {
-          this.$router.push('/home-agent')
+          this.$router.replace('/home-agent')
         }
       })
     },

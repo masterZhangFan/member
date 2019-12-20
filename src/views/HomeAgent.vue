@@ -5,10 +5,10 @@
         <img class="header-img" src="@/assets/images/app-logo.png" alt="">
         <div class="phone">{{userInfo.phone}}</div>
         <div class="level">
-          <span><img src="@/assets/images/icon_masonry.svg" alt=""> {{userType===1?getLevelName(userInfo.memberLevel*1):userInfo.delegate.delegateTypeName}}</span>
+          <span><img src="@/assets/images/icon_masonry.svg" alt=""> {{userType*1===1?getLevelName(userInfo.memberLevel*1):userInfo.delegate.delegateTypeName}}</span>
           <img class="micon-up" src="@/assets/images/icon_masonry.svg" alt="">
         </div>
-        <div class="rules" @click="showRule=true">《会员权益和规则》</div>
+        <div class="rules" @click="showRule=true">《代理权益和规则》</div>
       </div>
       <div class="user-member-info">
         <div class="item-info" @click="$router.push('/fans-list')">
@@ -35,7 +35,7 @@
       <ul>
         <li>
           <img class="left-logo" src="@/assets/images/icon_invite.svg" alt="">
-          <div class="right-box" @click="$router.push('/invite-agents')">
+          <div class="right-box" @click="$router.push('/share')">
             <span>代理邀请</span>
             <img class="micon-right" src="@/assets/images/icon_right.svg" alt="">
           </div>
@@ -66,7 +66,7 @@
       v-model="showRule"
       position="bottom"
       :style="{ height: '60%' }">
-      <Rules/>
+      <Rules :rules='rules'/>
     </van-popup>
   </div>
 </template>
@@ -74,6 +74,7 @@
 import { mapState } from 'vuex'
 import AddAgents from './AddAgents.vue'
 import Rules from '@/components/rules.vue'
+import { getSysConfig } from '@/api/system'
 export default {
   components: {
     AddAgents,
@@ -82,7 +83,8 @@ export default {
   data () {
     return {
       show: false,
-      showRule: false
+      showRule: false,
+      rules: ''
     }
   },
   computed: mapState([
@@ -90,7 +92,9 @@ export default {
     'userType'
   ]),
   created () {
-    console.log(this.userInfo)
+    getSysConfig().then(res => {
+      this.rules = res.data.delegateRules
+    })
   },
   methods: {
     setShow (flag) {

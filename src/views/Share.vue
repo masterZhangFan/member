@@ -1,8 +1,8 @@
 <!--
  * @Author: your name
  * @Date: 2019-12-02 23:54:53
- * @LastEditTime: 2019-12-03 01:45:24
- * @LastEditors: Please set LastEditors
+ * @LastEditTime : 2019-12-21 00:57:50
+ * @LastEditors  : 尼大人
  * @Description: In User Settings Edit
  * @FilePath: \member\src\views\UpgradeRecharge.vue
  -->
@@ -26,6 +26,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+import { getShareParams } from '@/api/user'
 import Header from '@/components/header/Index.vue'
 export default {
   components: {
@@ -36,9 +38,33 @@ export default {
 
     }
   },
+  computed: mapState([
+    'token'
+  ]),
+  created () {
+    getShareParams().then(res => {
+      this.configShareData(res.data.data)
+    })
+  },
   methods: {
     recharge (name, title) {
       this.$toast(title)
+    },
+    // 配置分享信息
+    configShareData (shareData) {
+      var config = {
+        title: shareData.title, // 分享标题
+        desc: shareData.desc, // 分享描述
+        link: shareData.link, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+        imgUrl: shareData.imgUrl, // 分享图标
+        success: function () {
+        // 设置成功
+        }
+      }
+      window.wx.ready(function () { // 需在用户可能点击分享按钮前就先调用
+        window.wx.onMenuShareAppMessage(config)
+        window.wx.onMenuShareTimeline(config)
+      })
     }
   }
 }
