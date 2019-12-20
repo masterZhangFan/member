@@ -51,22 +51,23 @@
   </div>
 </template>
 <script>
-import { getUserInfo, getUserType } from '@/utils/storage'
+import { mapState } from 'vuex'
 import AddAgents from './AddAgents.vue'
 export default {
   components: {
     AddAgents
   },
+  computed: mapState([
+    'userInfo',
+    'userType'
+  ]),
   data () {
     return {
-      show: false,
-      userInfo: {},
-      userType: ''
+      show: false
     }
   },
   created () {
-    this.userInfo = getUserInfo() || {}
-    this.userType = getUserType()
+
   },
   methods: {
     setShow (flag) {

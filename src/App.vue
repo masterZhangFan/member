@@ -14,15 +14,19 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import { getPayConfig } from '@/api/system'
-import { setWxConfig } from '@/utils/storage'
+import { getUserInfo } from '@/utils/storage'
 export default {
   created () {
+    if (getUserInfo()) {
+      console.log(123)
+      this.setUserInfo(getUserInfo())
+    }
     getPayConfig({
       // url: 'http://mp.scxcyb.cn/login?type=2'
       url: window.location.href
     }).then(res => {
-      setWxConfig(res.data)
       window.wx.config({
         debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
         appId: res.data.appid, // 必填，公众号的唯一标识
@@ -35,6 +39,9 @@ export default {
   },
   mounted () {
 
+  },
+  methods: {
+    ...mapActions(['setUserInfo'])
   }
 }
 </script>

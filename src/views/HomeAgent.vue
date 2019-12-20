@@ -71,7 +71,7 @@
   </div>
 </template>
 <script>
-import { getUserInfo, getUserType } from '@/utils/storage'
+import { mapState } from 'vuex'
 import AddAgents from './AddAgents.vue'
 import Rules from '@/components/rules.vue'
 export default {
@@ -82,14 +82,15 @@ export default {
   data () {
     return {
       show: false,
-      showRule: false,
-      userInfo: {},
-      userType: ''
+      showRule: false
     }
   },
+  computed: mapState([
+    'userInfo',
+    'userType'
+  ]),
   created () {
-    this.userInfo = getUserInfo() || {}
-    this.userType = getUserType()
+    console.log(this.userInfo)
   },
   methods: {
     setShow (flag) {

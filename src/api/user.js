@@ -24,7 +24,7 @@ export function login (data) {
   })
 }
 
-export function getInfo () {
+export function getUserData () {
   return request({
     url: '/user/getUserInfo',
     method: 'get'

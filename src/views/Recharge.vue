@@ -10,7 +10,7 @@
   <div class="page-container-bg recharge-page">
     <Header title="余额充值"/>
     <section class="content-box-top">
-      <div class="top-box">￥<span class="current-level">{{userInfo.cash}}</span></div>
+      <div class="top-box">购物余额<span class="current-level">{{userInfo.shoppingBalance}}</span>元，话费<span class="current-level">{{userInfo.callBalance}}</span>元</div>
       <div class="money-tip">{{rechargeType.length?rechargeType[currentIndex].chargeDesc:'--'}}</div>
     </section>
     <section class="content-box-bottom">
@@ -47,22 +47,25 @@
 </template>
 
 <script>
-import { getUserInfo, getWxCode } from '@/utils/storage'
+import { mapState, mapActions } from 'vuex'
 import { getChargeList, createOrder } from '@/api/pay'
+import { getUserData } from '@/api/user'
 import Header from '@/components/header/Index.vue'
 export default {
   components: {
     Header
   },
+  computed: mapState([
+    'userInfo'
+  ]),
   data () {
     return {
       currentIndex: 0,
-      userInfo: {},
       rechargeType: [] // 可选充值列表
     }
   },
   created () {
-    this.userInfo = getUserInfo() || {}
+    getUserData()
   },
   mounted () {
     getChargeList().then(res => {
@@ -70,9 +73,9 @@ export default {
     })
   },
   methods: {
+    ...mapActions(['setUserInfo', 'setUserType']),
     createOrder (paychargeIdFor) {
       createOrder({
-        code: getWxCode(),
         payFor: 2,
         chargeId: this.rechargeType[this.currentIndex].chargeId
       }).then(res => {
@@ -81,6 +84,7 @@ export default {
       })
     },
     wechatPay (cofigObj) {
+      let _this = this
       const onBridgeReady = () => {
         window.WeixinJSBridge.invoke('getBrandWCPayRequest', {
           'appId': cofigObj.appId, // 公众号名称，由商户传入
@@ -94,9 +98,12 @@ export default {
           if (res.err_msg === 'get_brand_wcpay_request:ok') {
           // 使用以上方式判断前端返回,微信团队郑重提示：
             // res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。
-            this.$toast('支付成功')
+            _this.$toast('支付成功')
+            getUserData().then(res => {
+              _this.setUserInfo(res.data)
+            })
           } else {
-            this.$toast('支付失败')
+            _this.$toast('支付失败')
           }
         })
       }
@@ -121,9 +128,9 @@ export default {
     color: rgb(254,227,216);
     font-size: px2rem(28);
     .top-box{
-      @include flex();
+      @include flex(center,baseline);
         .current-level{
-          margin-right: px2rem(10);
+          margin: 0 px2rem(10);
           font-size: px2rem(48);
         }
         .level{
@@ -145,7 +152,7 @@ export default {
     }
     .money-tip{
       text-align: center;
-      margin-top: px2rem(20);
+      margin-top: px2rem(30);
       .money-number{
         font-size: px2rem(48);
       }

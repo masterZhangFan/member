@@ -13,7 +13,7 @@
       <div class="invite-type-box">
         <h3>选择模板</h3>
         <div class="type-box">
-          <span :class="{'item-type': true, 'item-active': index==0}" :key="index" v-for="(item,index) in 4">200元</span>
+          <span :class="{'item-type': true, 'item-active': index==0}" :key="index" v-for="(item,index) in 4">模板{{++index}}</span>
         </div>
       </div>
       <div class="invite-btn-box">

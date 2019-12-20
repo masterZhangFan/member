@@ -31,9 +31,10 @@
   </div>
 </template>
 <script>
+import { mapActions } from 'vuex'
 import { login, getPhoneCode } from '@/api/user'
 import { getOpenId } from '@/api/system'
-import { setUserInfo, setUserType, setWxCode } from '@/utils/storage'
+import { setUserInfo, setUserType, getUserType } from '@/utils/storage'
 
 export default {
   data () {
@@ -51,32 +52,45 @@ export default {
     }
   },
   created () {
-    this.loginData.loginType = this.$route.query.type || 2
-    setUserType(this.$route.query.type)
+    this.isNeedLogin()
   },
   mounted () {
-    if (!this.$route.query.code) {
-      this.authorization()
-    } else {
-      setWxCode(this.$route.query.code)
-      // 获取openID
-      getOpenId({
-        code: this.$route.query.code
-      }).then(res => {
-        console.log(res)
-        this.loginData.openId = res.data.openid
-      })
-    }
+
   },
   methods: {
+    ...mapActions(['setUserInfo', 'setUserType']),
     authorization () {
       let url = window.encodeURIComponent(window.location.href)
       // gh_ca7d929dcac2
       window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxd812cd5b3a0f2199&redirect_uri=${url}&response_type=code&scope=snsapi_userinfo&state=WX&connect_redirect=1#wechat_redirect`
     },
+    // 判断是否需要登陆
+    isNeedLogin () {
+      // 登录type不等于localstorage里面的type就重新登录
+      if (this.$route.query.type * 1 !== getUserType() * 1) {
+        if (!this.$route.query.code) {
+          // this.authorization()
+        }
+        this.loginData.loginType = this.$route.query.type
+        setUserType(this.$route.query.type)// 存本地
+        this.setUserType(this.$route.query.type)// vuex
+        getOpenId({
+          code: this.$route.query.code
+        }).then(res => {
+          this.loginData.openId = res.data
+        })
+      } else {
+        if (this.$route.query.type * 1 === 1) {
+          this.$router.replace('/home-member')
+        } else {
+          this.$router.replace('/home-agent')
+        }
+      }
+    },
     login () {
       login(this.loginData).then(res => {
-        setUserInfo(res.data)
+        setUserInfo(res.data) // 存本地
+        this.setUserInfo(res.data) // 存vuex
         if (this.$route.query.type === 1) {
           this.$router.push('/home-member')
         } else {
