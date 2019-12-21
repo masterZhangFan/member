@@ -29,38 +29,93 @@
               <img class="micon-right" src="@/assets/images/icon_selected.png" alt="">
             </div>
           </li>
-          <li>
+          <!-- <li>
             <img class="left-logo" src="@/assets/images/pay-alipay.png" alt="">
             <div class="right-box">
               <span>支付宝</span>
               <img class="micon-right" src="@/assets/images/icon_unselected.png" alt="">
             </div>
-          </li>
+          </li> -->
         </ul>
       </div>
       <div class="recharge-btn-box">
-        <van-button class="recharge-btn" round type="primary" size="large" @click="recharge">立 即 充 值</van-button>
+        <van-button class="recharge-btn" round type="primary" size="large" @click="createOrder">立 即 充 值</van-button>
         <div class="rules">《高级会员权益》</div>
       </div>
-
     </section>
+    <van-popup
+      v-model="showRule"
+      position="bottom"
+      :style="{ height: '60%' }">
+      <Rules :rules='rules'/>
+    </van-popup>
   </div>
 </template>
 
 <script>
+import { createOrder } from '@/api/pay'
+import { getSysConfig } from '@/api/system'
+import { getUserData } from '@/api/user'
 import Header from '@/components/header/Index.vue'
+import Rules from '@/components/rules.vue'
 export default {
   components: {
-    Header
+    Header,
+    Rules
   },
   data () {
     return {
-
+      rules: ''
     }
   },
+  created () {
+    getSysConfig().then(res => {
+      this.rules = res.data.seniorMemberRules
+    })
+  },
   methods: {
-    recharge (name, title) {
-      this.$toast(title)
+    createOrder (paychargeIdFor) {
+      createOrder({
+        payFor: 1
+      }).then(res => {
+        this.$toast('下单成功！')
+        this.wechatPay(res.data)
+      })
+    },
+    wechatPay (cofigObj) {
+      let _this = this
+      const onBridgeReady = () => {
+        window.WeixinJSBridge.invoke('getBrandWCPayRequest', {
+          'appId': cofigObj.appId, // 公众号名称，由商户传入
+          'timeStamp': cofigObj.timeStamp, // 时间戳，自1970年以来的秒数
+          'nonceStr': cofigObj.nonceStr, // 随机串
+          'package': cofigObj.package,
+          'signType': cofigObj.signType, // 微信签名方式：
+          'paySign': cofigObj.paySign // 微信签名
+        },
+        function (res) {
+          if (res.err_msg === 'get_brand_wcpay_request:ok') {
+          // 使用以上方式判断前端返回,微信团队郑重提示：
+            // res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。
+            _this.$toast('支付成功')
+            getUserData().then(res => {
+              _this.setUserInfo(res.data)
+            })
+          } else {
+            _this.$toast('支付失败')
+          }
+        })
+      }
+      if (typeof WeixinJSBridge === 'undefined') {
+        if (document.addEventListener) {
+          document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false)
+        } else if (document.attachEvent) {
+          document.attachEvent('WeixinJSBridgeReady', onBridgeReady)
+          document.attachEvent('onWeixinJSBridgeReady', onBridgeReady)
+        }
+      } else {
+        onBridgeReady()
+      }
     }
   }
 }
