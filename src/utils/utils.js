@@ -1,8 +1,8 @@
 /*
  * @Author: 尼大人
  * @Date: 2019-12-10 23:37:26
- * @LastEditors: 尼大人
- * @LastEditTime: 2019-12-13 01:02:50
+ * @LastEditors  : 尼大人
+ * @LastEditTime : 2019-12-22 01:10:56
  */
 import { getInfo } from '@/api/user'
 export default {
@@ -22,8 +22,8 @@ export default {
       }
       return levelName
     }
-    Vue.prototype.getInfo = () => {
-      return getInfo()
-    }
+    // Vue.prototype.getInfo = () => {
+    //   return getInfo()
+    // }
   }
 }

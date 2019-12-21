@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2019-12-02 23:54:53
- * @LastEditTime : 2019-12-21 18:59:08
+ * @LastEditTime : 2019-12-21 22:59:22
  * @LastEditors  : 尼大人
  * @Description: In User Settings Edit
  * @FilePath: \member\src\views\UpgradeRecharge.vue
@@ -48,7 +48,7 @@ export default {
   ]),
   created () {
     getShareParams().then(res => {
-      this.configShareData = res.data.data
+      this.configShareData = res.data
     })
   },
   methods: {
