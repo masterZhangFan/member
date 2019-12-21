@@ -3,7 +3,7 @@
     <LoginOut />
     <div class="home-page-top">
       <div class="user-base-info">
-        <img class="header-img" src="@/assets/images/app-logo.png" alt="">
+        <img class="header-img" :src="imgBaseUrl+userInfo.icon" alt="">
         <div class="phone">{{userInfo.phone}}</div>
         <div class="level">
           <span><img src="@/assets/images/icon_masonry.svg" alt=""> {{userType*1===1?getLevelName(userInfo.memberLevel*1):userInfo.delegate.delegateTypeName}}</span>
@@ -87,7 +87,8 @@ export default {
     return {
       show: false,
       showRule: false,
-      rules: ''
+      rules: '',
+      imgBaseUrl: process.env.VUE_APP_IMG_API
     }
   },
   computed: mapState([

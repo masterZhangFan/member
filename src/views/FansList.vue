@@ -5,7 +5,7 @@
       <van-tabs @click="onClick">
         <van-tab title="直属粉丝">
           <div class="item-fans-box" v-for="(item,index) in directlyFansList" :key="index">
-            <img class="header-img" src="@/assets/images/qq (1).png" alt="">
+            <img class="header-img" :src="imgBaseUrl+item.icon" alt="">
             <div class="content-info">
               <div class="top">
                 <span class="phone">{{item.nickname}}</span>
@@ -21,7 +21,7 @@
         </van-tab>
         <van-tab title="推荐粉丝">
           <div class="item-fans-box" v-for="(item,index) in indirectFansList" :key="index">
-            <img class="header-img" src="@/assets/images/qq (1).png" alt="">
+            <img class="header-img" :src="imgBaseUrl+item.icon" alt="">
             <div class="content-info">
               <div class="top">
                 <span class="phone">{{item.nickname}}</span>
@@ -50,7 +50,8 @@ export default {
   data () {
     return {
       indirectFansList: [],
-      directlyFansList: []
+      directlyFansList: [],
+      imgBaseUrl: process.env.VUE_APP_IMG_API
     }
   },
   created () {

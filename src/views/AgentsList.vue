@@ -3,7 +3,7 @@
     <Header title="代理列表"/>
     <section>
       <div class="item-fans-box" v-for="(item,index) in agentList" :key="index">
-        <img class="header-img" src="@/assets/images/qq (1).png" alt="">
+        <img class="header-img" :src="imgBaseUrl+item.icon" alt="">
         <div class="content-info">
           <div class="top">
             <span class="phone">{{item.phone}}</span>
@@ -29,7 +29,8 @@ export default {
   },
   data () {
     return {
-      agentList: []
+      agentList: [],
+      imgBaseUrl: process.env.VUE_APP_IMG_API
     }
   },
   created () {
