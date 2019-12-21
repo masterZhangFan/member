@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2019-12-01 22:32:10
- * @LastEditTime : 2019-12-21 01:03:02
+ * @LastEditTime : 2019-12-21 17:54:51
  * @LastEditors  : 尼大人
  * @Description: In User Settings Edit
  * @FilePath: \member-agent-h5\src\views\Login.vue
@@ -34,7 +34,7 @@
 import { mapActions, mapState } from 'vuex'
 import { login, getPhoneCode, getUserData } from '@/api/user'
 import { getOpenId } from '@/api/system'
-import { setUserInfo, setUserType, getUserType, setToken, getToken } from '@/utils/storage'
+import { setUserInfo, setUserType, getUserType, setToken, getToken, setOpenId, _getOpenId } from '@/utils/storage'
 
 export default {
   data () {
@@ -78,6 +78,7 @@ export default {
           code: this.$route.query.code
         }).then(res => {
           this.loginData.openId = res.data
+          setOpenId(res.data)
         })
       } else {
         if (getToken() && getToken() !== 'null') {
@@ -95,6 +96,9 @@ export default {
     },
     login () {
       this.loginData.loginType = this.$route.query.type
+      if (!this.loginData.openId) { // 退出再登录去历史openID
+        this.loginData.openId = _getOpenId()
+      }
       setUserType(this.$route.query.type)// 存本地
       this.setUserType(this.$route.query.type)// vuex
       login(this.loginData).then(res => {

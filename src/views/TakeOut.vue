@@ -1,8 +1,8 @@
 <!--
  * @Author: your name
  * @Date: 2019-12-02 23:54:53
- * @LastEditTime: 2019-12-13 00:08:59
- * @LastEditors: 尼大人
+ * @LastEditTime : 2019-12-21 14:28:21
+ * @LastEditors  : 尼大人
  * @Description: In User Settings Edit
  * @FilePath: \member\src\views\UpgradeRecharge.vue
  -->
@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import { userCommissionApplay } from '@/api/pay'
+import { userCommissionApplay, getUserCommissionSet } from '@/api/pay'
 import { getUserInfo } from '@/utils/storage'
 import Header from '@/components/header/Index.vue'
 export default {
@@ -50,25 +50,43 @@ export default {
   data () {
     return {
       value: '',
-      userInfo: {}
+      userInfo: {},
+      alipayData: {
+        alipayRealname: '',
+        alipayAccount: '',
+        amount: ''
+      }
     }
   },
   created () {
     this.userInfo = getUserInfo() || {}
+    getUserCommissionSet().then(res => {
+      if (res.data) {
+        this.userCommissionData = res.data
+        this.alipayData.alipayRealname = res.data.alipayRealname
+        this.alipayData.alipayAccount = res.data.alipayAccount
+      } else {
+        this.$toast('请选设置提现账户')
+      }
+    })
   },
   methods: {
     userCommissionApplay () {
-      userCommissionApplay({
-        alipayRealname: '',
-        alipayAccount: ''
-      }).then(res => {
+      this.alipayData.amount = this.value * 1
+      userCommissionApplay(this.alipayData).then(res => {
 
       })
     },
     inputValue () {
-      if (this.value * 1 > this.userInfo.cash * 1) {
-        this.value = this.userInfo.cash
-        this.$toast('提现金额不能大于可取金额')
+      let regStr = /^[1-9]\d*$/
+      if (regStr.test(this.value)) {
+        if (this.value * 1 > this.userInfo.cash * 1) {
+          this.value = this.userInfo.cash
+          this.$toast('提现金额不能大于可取金额')
+        }
+      } else {
+        this.$toast('请输入大于0数字')
+        this.value = ''
       }
     }
   }

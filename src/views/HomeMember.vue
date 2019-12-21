@@ -1,10 +1,11 @@
 <template>
   <div class="page-container home-page">
+    <LoginOut />
     <div class="home-page-top">
       <div class="user-base-info">
         <img class="header-img" src="@/assets/images/qq (1).png" alt="">
         <div class="phone">{{userInfo.phone}}</div>
-        <div class="level" @click="$router.push('/upgrade')">
+        <div class="level" @click="isToUpdata">
           <span><img src="@/assets/images/icon_masonry.svg" alt=""> {{userType*1===1?getLevelName(userInfo.memberLevel*1):userInfo.delegate.delegateTypeName}}</span>
           <img class="micon-up" src="@/assets/images/icon_masonry.svg" alt="">
         </div>
@@ -52,7 +53,7 @@
       v-model="showRule"
       position="bottom"
       :style="{ height: '60%' }">
-      <Rules :rules='rules'/>
+      <Rules :rules='rules' @setShowRule='setShowRule'/>
     </van-popup>
   </div>
 </template>
@@ -60,11 +61,13 @@
 import { mapState } from 'vuex'
 import AddAgents from './AddAgents.vue'
 import Rules from '@/components/rules.vue'
+import LoginOut from '@/components/LoginOut.vue'
 import { getSysConfig } from '@/api/system'
 export default {
   components: {
     AddAgents,
-    Rules
+    Rules,
+    LoginOut
   },
   computed: mapState([
     'userInfo',
@@ -89,6 +92,14 @@ export default {
   methods: {
     setShow (flag) {
       this.show = flag
+    },
+    isToUpdata () {
+      if (this.userInfo.memberLevel * 1 === 1) {
+        this.$router.push('/upgrade')
+      }
+    },
+    setShowRule (flag) {
+      this.showRule = false
     }
   }
 

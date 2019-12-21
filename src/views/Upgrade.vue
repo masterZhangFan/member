@@ -1,8 +1,8 @@
 <!--
  * @Author: your name
  * @Date: 2019-12-02 23:54:53
- * @LastEditTime: 2019-12-03 01:06:06
- * @LastEditors: Please set LastEditors
+ * @LastEditTime : 2019-12-21 15:26:42
+ * @LastEditors  : 尼大人
  * @Description: In User Settings Edit
  * @FilePath: \member\src\views\UpgradeRecharge.vue
  -->
@@ -39,21 +39,21 @@
         </ul>
       </div>
       <div class="recharge-btn-box">
-        <van-button class="recharge-btn" round type="primary" size="large" @click="createOrder">立 即 充 值</van-button>
-        <div class="rules">《高级会员权益》</div>
+        <van-button class="recharge-btn" round type="primary" size="large" @click="createOrder">立 即 升 级</van-button>
+        <div class="rules" @click="showRule=true">《高级会员权益》</div>
       </div>
     </section>
     <van-popup
       v-model="showRule"
       position="bottom"
       :style="{ height: '60%' }">
-      <Rules :rules='rules'/>
+      <Rules :rules='rules' @setShowRule='setShowRule'/>
     </van-popup>
   </div>
 </template>
 
 <script>
-import { createOrder } from '@/api/pay'
+import { createOrder, getPayResult } from '@/api/pay'
 import { getSysConfig } from '@/api/system'
 import { getUserData } from '@/api/user'
 import Header from '@/components/header/Index.vue'
@@ -65,7 +65,8 @@ export default {
   },
   data () {
     return {
-      rules: ''
+      rules: '',
+      showRule: false
     }
   },
   created () {
@@ -74,6 +75,9 @@ export default {
     })
   },
   methods: {
+    setShowRule (flag) {
+      this.showRule = false
+    },
     createOrder (paychargeIdFor) {
       createOrder({
         payFor: 1
@@ -98,8 +102,15 @@ export default {
           // 使用以上方式判断前端返回,微信团队郑重提示：
             // res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。
             _this.$toast('支付成功')
-            getUserData().then(res => {
-              _this.setUserInfo(res.data)
+            getPayResult({
+              payOrder: cofigObj.payOrder
+            }).then(res => {
+              this.$toast('升级成功')
+              setTimeout(() => {
+                getUserData().then(res => {
+                  _this.setUserInfo(res.data)
+                })
+              }, 1000)
             })
           } else {
             _this.$toast('支付失败')

@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2019-12-04 23:18:47
- * @LastEditTime: 2019-12-13 00:47:56
- * @LastEditors: 尼大人
+ * @LastEditTime : 2019-12-21 14:31:29
+ * @LastEditors  : 尼大人
  * @Description: In User Settings Edit
  * @FilePath: \member\src\api\user.js
  */
@@ -55,6 +55,15 @@ export function setUserCommissionSet (data) {
 export function createOrder (params) {
   return request({
     url: '/charge/orders',
+    method: 'get',
+    params
+  })
+}
+
+// 充值后刷新用户数据
+export function getPayResult (params) {
+  return request({
+    url: '/charge/getPayResult',
     method: 'get',
     params
   })

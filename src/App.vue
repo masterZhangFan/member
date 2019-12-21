@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-30 12:08:54
- * @LastEditTime : 2019-12-20 23:12:28
+ * @LastEditTime : 2019-12-21 17:39:35
  * @LastEditors  : 尼大人
  -->
 <template>
@@ -41,7 +41,10 @@ export default {
 
   },
   methods: {
-    ...mapActions(['setUserInfo', 'setUserType'])
+    ...mapActions(['setUserInfo', 'setUserType']),
+    loginOut () {
+      console.log(123)
+    }
   }
 }
 </script>

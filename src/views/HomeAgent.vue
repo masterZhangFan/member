@@ -1,5 +1,6 @@
 <template>
   <div class="page-container home-page">
+    <LoginOut />
     <div class="home-page-top">
       <div class="user-base-info">
         <img class="header-img" src="@/assets/images/app-logo.png" alt="">
@@ -66,7 +67,7 @@
       v-model="showRule"
       position="bottom"
       :style="{ height: '60%' }">
-      <Rules :rules='rules'/>
+      <Rules :rules='rules' @setShowRule='setShowRule'/>
     </van-popup>
   </div>
 </template>
@@ -74,11 +75,13 @@
 import { mapState } from 'vuex'
 import AddAgents from './AddAgents.vue'
 import Rules from '@/components/rules.vue'
+import LoginOut from '@/components/LoginOut.vue'
 import { getSysConfig } from '@/api/system'
 export default {
   components: {
     AddAgents,
-    Rules
+    Rules,
+    LoginOut
   },
   data () {
     return {
@@ -97,6 +100,9 @@ export default {
     })
   },
   methods: {
+    setShowRule (flag) {
+      this.showRule = false
+    },
     setShow (flag) {
       this.show = flag
     },

@@ -42,3 +42,11 @@ img{
 	text-align: center;
 	color: #999;
 }
+
+.login-out{
+  height: px2rem(52);
+  position: fixed;
+  top: px2rem(16);
+  right: px2rem(16);
+  z-index: 1000000;
+}

@@ -2,13 +2,14 @@
  * @Author: 尼大人
  * @Date: 2019-12-10 23:37:26
  * @LastEditors  : 尼大人
- * @LastEditTime : 2019-12-21 00:35:30
+ * @LastEditTime : 2019-12-21 17:59:35
  */
 import Cookies from 'js-cookie'
 
 const USER_INFO = 'userInfo'
 const USER_TYPE = 'userType'
 const TOKEN = 'my_token'
+const OPENID = 'zxb_openId'
 const CURRENT_ROUTER = 'currentRouter'
 
 // 设置登录类型： 会员1 or 代理2
@@ -57,4 +58,27 @@ export const setToken = (token) => {
  */
 export const getToken = () => {
   return Cookies.get(TOKEN)
+}
+
+/**
+ * 设置OPENID
+ * @param {object} TOKEN
+ */
+export const setOpenId = (openId) => {
+  return Cookies.set(OPENID, openId)
+}
+
+/**
+ * 获取TOKEN
+ */
+export const _getOpenId = () => {
+  return Cookies.get(OPENID)
+}
+
+/**
+ * 退出登录时清空出了openID以外的所以数据
+ */
+export const clearData = () => {
+  Cookies.remove(TOKEN)
+  localStorage.removeItem(USER_INFO)
 }

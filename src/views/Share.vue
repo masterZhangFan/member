@@ -1,27 +1,30 @@
 <!--
  * @Author: your name
  * @Date: 2019-12-02 23:54:53
- * @LastEditTime : 2019-12-21 00:57:50
+ * @LastEditTime : 2019-12-21 18:59:08
  * @LastEditors  : 尼大人
  * @Description: In User Settings Edit
  * @FilePath: \member\src\views\UpgradeRecharge.vue
  -->
 <template>
   <div class="page-container-nobg share-page">
-    <Header title="会员邀请"/>
+    <Header :title="userType*1===1?'会员邀请':'代理邀请'"/>
     <section class="content-box">
       <div class="share-img-box">
         <img class="share-img" src="@/assets/images/login_bg.png" alt="">
       </div>
       <div class="invite-btn-box">
         <h3>分享图片至</h3>
-        <div class="share-type-box">
+        <div class="share-type-box" @click="toShare">
           <img src="@/assets/images/qq (1).png" alt="">
           <img src="@/assets/images/wechat.png" alt="">
           <img src="@/assets/images/circle_friends.png" alt="">
         </div>
       </div>
     </section>
+    <div class="guidance-box" v-if="showGuidance" @click="showGuidance=false">
+      <img src="@/assets/images/sherr_bg_promt.png" alt="">
+    </div>
   </div>
 </template>
 
@@ -35,15 +38,17 @@ export default {
   },
   data () {
     return {
-
+      showGuidance: false,
+      configShareData: {},
+      isConfig: false
     }
   },
   computed: mapState([
-    'token'
+    'userType'
   ]),
   created () {
     getShareParams().then(res => {
-      this.configShareData(res.data.data)
+      this.configShareData = res.data.data
     })
   },
   methods: {
@@ -51,7 +56,8 @@ export default {
       this.$toast(title)
     },
     // 配置分享信息
-    configShareData (shareData) {
+    setConfigShareData (shareData) {
+      let _this = this
       var config = {
         title: shareData.title, // 分享标题
         desc: shareData.desc, // 分享描述
@@ -59,12 +65,20 @@ export default {
         imgUrl: shareData.imgUrl, // 分享图标
         success: function () {
         // 设置成功
+          _this.showGuidance = false
         }
       }
       window.wx.ready(function () { // 需在用户可能点击分享按钮前就先调用
         window.wx.onMenuShareAppMessage(config)
         window.wx.onMenuShareTimeline(config)
       })
+    },
+    toShare () {
+      if (!this.isConfig) {
+        this.setConfigShareData(this.configShareData)
+        this.isConfig = true
+      }
+      this.showGuidance = true
     }
   }
 }
@@ -87,12 +101,25 @@ export default {
       }
       .share-type-box{
         padding-top: px2rem(40);
+        width: px2rem(372);
         img{
           width: px2rem(80);
           height: px2rem(80);
           margin-right: px2rem(44);
         }
       }
+    }
+  }
+  .guidance-box{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1000000;
+    background: rgba(100,100,100,0.6);
+    img{
+      width: 100%;
     }
   }
 }

@@ -2,33 +2,19 @@
  * @Author: 尼大人
  * @Date: 2019-12-05 00:54:51
  * @LastEditors  : 尼大人
- * @LastEditTime : 2019-12-21 14:40:02
+ * @LastEditTime : 2019-12-21 18:04:58
  -->
 
 <template>
-  <div class="rule-content-box">
-    <h3 class="title w100">会员权益和规则</h3>
-    <div class="content-box w100">
-      <div v-html="rules"></div>
-    </div>
-    <div class="btn-box w100">
-      <van-button class="invite-btn" round type="primary" size="large" @click="$emit('setShowRule')">知道了</van-button>
-    </div>
-  </div>
+  <img @click="loginOut" class="login-out" src="@/assets/images/loginout.svg" alt="">
 </template>
 
 <script>
+import { clearData, getUserType } from '@/utils/storage'
 export default {
-  name: 'Rules',
+  name: 'LoginOut',
   props: {
-    show: {
-      type: Boolean,
-      default: false
-    },
-    rules: {
-      type: String,
-      default: ''
-    }
+
   },
   data () {
     return {
@@ -37,11 +23,9 @@ export default {
   },
   created () {},
   methods: {
-    onClickLeft () {
-      this.$router.back()
-    },
-    onClickRight () {
-
+    loginOut () {
+      clearData()
+      this.$router.replace(`/login?type=${getUserType()}`)
     }
   }
 }

@@ -1,8 +1,8 @@
 <!--
  * @Author: your name
  * @Date: 2019-12-02 23:54:53
- * @LastEditTime: 2019-12-18 22:50:17
- * @LastEditors: 尼大人
+ * @LastEditTime : 2019-12-21 15:24:53
+ * @LastEditors  : 尼大人
  * @Description: In User Settings Edit
  * @FilePath: \member\src\views\UpgradeRecharge.vue
  -->
@@ -48,7 +48,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import { getChargeList, createOrder } from '@/api/pay'
+import { getChargeList, createOrder, getPayResult } from '@/api/pay'
 import { getUserData } from '@/api/user'
 import Header from '@/components/header/Index.vue'
 export default {
@@ -65,7 +65,7 @@ export default {
     }
   },
   created () {
-    getUserData()
+
   },
   mounted () {
     getChargeList().then(res => {
@@ -98,9 +98,15 @@ export default {
           if (res.err_msg === 'get_brand_wcpay_request:ok') {
           // 使用以上方式判断前端返回,微信团队郑重提示：
             // res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。
-            _this.$toast('支付成功')
-            getUserData().then(res => {
-              _this.setUserInfo(res.data)
+            getPayResult({
+              payOrder: cofigObj.payOrder
+            }).then(res => {
+              _this.$toast('充值成功')
+              setTimeout(() => {
+                getUserData().then(res => {
+                  _this.setUserInfo(res.data)
+                })
+              }, 1000)
             })
           } else {
             _this.$toast('支付失败')

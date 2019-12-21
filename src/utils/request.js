@@ -1,13 +1,12 @@
 /*
  * @Author: your name
  * @Date: 2019-11-30 14:53:29
- * @LastEditTime : 2019-12-21 00:42:23
+ * @LastEditTime : 2019-12-21 18:00:25
  * @LastEditors  : 尼大人
  * @Description: In User Settings Edit
  * @FilePath: \member-agent-manage\src\utils\request.js
  */
 import axios from 'axios'
-import store from '@/store'
 // import { getToken } from '@/utils/auth'
 
 import { Toast } from 'vant'
@@ -18,18 +17,27 @@ console.log(process.env.VUE_APP_BASE_API)
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
   // withCredentials: true, // send cookies when cross-domain requests
-  timeout: 10000 // request timeout
+  timeout: 20000 // request timeout
 })
 
 // request interceptor
 service.interceptors.request.use(
   config => {
-    Toast.loading({
-      forbidClick: true,
-      duration: 0
-    })
+    if (config.url.indexOf('/charge/getPayResult') !== -1) {
+      Toast.loading({
+        message: '充值中...',
+        forbidClick: true,
+        loadingType: 'spinner',
+        duration: 0
+      })
+    } else {
+      Toast.loading({
+        forbidClick: true,
+        duration: 0
+      })
+    }
     if (getToken()) {
-      config.headers['token'] = getToken() || store.state.token || null
+      config.headers['token'] = getToken() || null
     }
     return config
   },
