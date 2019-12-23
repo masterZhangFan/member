@@ -17,7 +17,7 @@
           初级会员
         </span>
       </div>
-      <div class="money-tip">升级到高级会员仅需￥<span class="money-number">299</span></div>
+      <div class="money-tip">升级到高级会员仅需￥<span class="money-number">{{memberPrice}}</span></div>
     </section>
     <section class="content-box-bottom">
       <div class="recharge-page-bottom">
@@ -53,7 +53,11 @@
 </template>
 
 <script>
+<<<<<<< HEAD
 import { mapActions } from 'vuex'
+=======
+import { mapState, mapActions } from 'vuex'
+>>>>>>> 72decf70c41116c7fcda251e9f7dc33994d5125e
 import { createOrder, getPayResult } from '@/api/pay'
 import { getSysConfig } from '@/api/system'
 import { getUserData } from '@/api/user'
@@ -67,16 +71,22 @@ export default {
   data () {
     return {
       rules: '',
-      showRule: false
+      showRule: false,
+      memberPrice: '--'
     }
   },
   created () {
     getSysConfig().then(res => {
       this.rules = res.data.seniorMemberRules
+      this.memberPrice = res.data.memberPrice
     })
   },
   methods: {
+<<<<<<< HEAD
     ...mapActions(['setUserInfo', 'setUserType']),
+=======
+    ...mapActions(['setUserInfo']),
+>>>>>>> 72decf70c41116c7fcda251e9f7dc33994d5125e
     setShowRule (flag) {
       this.showRule = false
     },

@@ -24,13 +24,14 @@ import {
   Popup,
   DropdownMenu,
   DropdownItem,
-  Uploader
+  Uploader,
+  ImagePreview
 } from 'vant'
 
 // 引入全局方法
 import utils from './utils/utils'
 
-Vue.use(Button).use(NavBar).use(Toast).use(Tab).use(Tabs).use(Field).use(Popup).use(DropdownMenu).use(DropdownItem).use(Uploader)
+Vue.use(Button).use(NavBar).use(Toast).use(Tab).use(Tabs).use(Field).use(Popup).use(DropdownMenu).use(DropdownItem).use(Uploader).use(ImagePreview)
 Vue.use(utils)
 Vue.config.productionTip = false
 

@@ -8,41 +8,74 @@
  -->
 <template>
   <div class="page-container-nobg invite-agents-page">
-    <Header title="会员邀请"/>
+    <Header :title="userType*1===1?'会员邀请':'代理邀请'"/>
     <section class="content-box-bottom">
       <div class="invite-type-box">
         <h3>选择模板</h3>
         <div class="type-box">
-          <span :class="{'item-type': true, 'item-active': index==0}" :key="index" v-for="(item,index) in 4">模板{{++index}}</span>
+          <span :class="{'item-type': true, 'item-active': index==0}" :key="index" v-for="(item,index) in shareTempType" @click="index=true;tempId=item.shareTempId" >
+            <img :src="item.shareTempSmallPic" @click="show=true" alt="" srcset="">
+          </span>
         </div>
       </div>
       <div class="invite-btn-box">
-        <van-button class="invite-btn" round type="primary" size="large" @click="$router.push('/share')">下一步</van-button>
+        <van-button class="invite-btn" round type="primary" size="large" @click="$router.push(`/share?tempId=${tempId}`)">下一步</van-button>
       </div>
     </section>
+    <div style="position: fixed;z-index:10000">
+      <van-image-preview
+        v-model="show"
+        :images="images">
+      </van-image-preview>
+    </div>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+import { getShareTemp } from '@/api/user'
 import Header from '@/components/header/Index.vue'
 export default {
   components: {
     Header
   },
+  computed: mapState([
+    'userType'
+  ]),
   data () {
     return {
-
+      shareTempType: [],
+      show: false,
+      images: [],
+      index: 0,
+      tempId: ''
     }
   },
+  created () {
+    getShareTemp({
+      shareTempType: this.userType
+    }).then(res => {
+      this.shareTempType = res.data
+      if (res.data.length) {
+        this.tempId = res.data[0].shareTempId
+        res.data.forEach(item => {
+          this.images.push(item.shareTempBigPic)
+          this.images.push(item.shareTempBigPic)
+          this.images.push(item.shareTempBigPic)
+        })
+      }
+    })
+  },
   methods: {
-    recharge (name, title) {
-      this.$toast(title)
-    }
+    
   }
 }
 </script>
 <style lang="scss">
 .invite-agents-page {
+  .van-overlay{
+    background-color: rgba(0,0,0,.4);
+  }
   .content-box-bottom{
     width: 100%;
     .invite-type-box{
@@ -66,6 +99,10 @@ export default {
           &.item-active{
             border-color: $ft--color;
             color:  $ft--color;
+          }
+          img{
+            max-width: 100%;
+            max-height: 100%;
           }
         }
       }
