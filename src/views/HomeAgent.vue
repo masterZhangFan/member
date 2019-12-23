@@ -36,7 +36,7 @@
       <ul>
         <li>
           <img class="left-logo" src="@/assets/images/icon_invite.svg" alt="">
-          <div class="right-box" @click="$router.push('/share')">
+          <div class="right-box" @click="$router.push('/invite-agents')">
             <span>代理邀请</span>
             <img class="micon-right" src="@/assets/images/icon_right.svg" alt="">
           </div>
