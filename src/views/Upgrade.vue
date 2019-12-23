@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2019-12-02 23:54:53
- * @LastEditTime : 2019-12-21 15:26:42
+ * @LastEditTime : 2019-12-22 17:24:57
  * @LastEditors  : 尼大人
  * @Description: In User Settings Edit
  * @FilePath: \member\src\views\UpgradeRecharge.vue
@@ -53,6 +53,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import { createOrder, getPayResult } from '@/api/pay'
 import { getSysConfig } from '@/api/system'
 import { getUserData } from '@/api/user'
@@ -75,6 +76,7 @@ export default {
     })
   },
   methods: {
+    ...mapActions(['setUserInfo', 'setUserType']),
     setShowRule (flag) {
       this.showRule = false
     },
