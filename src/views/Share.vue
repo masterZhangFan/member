@@ -11,7 +11,7 @@
     <Header :title="userType*1===1?'会员邀请':'代理邀请'"/>
     <section class="content-box">
       <div class="share-img-box">
-        <img class="share-img" src="@/assets/images/login_bg.png" alt="">
+        <img class="share-img" :src="configShareData.imgUrl" alt="分享图片为空">
       </div>
       <div class="invite-btn-box">
         <h3>分享图片至</h3>
@@ -47,7 +47,9 @@ export default {
     'userType'
   ]),
   created () {
-    getShareParams().then(res => {
+    getShareParams({
+      shareTempId: this.$route.query.tempId
+    }).then(res => {
       this.configShareData = res.data
     })
   },

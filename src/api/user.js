@@ -56,10 +56,19 @@ export function getDirectlyFanWithUserId (params) {
   })
 }
 
-// 获取直属粉丝
+// 获取分享信息
 export function getShareParams (params) {
   return request({
     url: '/shareTemp/shareInfo',
+    method: 'get',
+    params: params
+  })
+}
+
+// 获取分享模板信息
+export function getShareTemp (params) {
+  return request({
+    url: '/shareTemp/shareTemps',
     method: 'get',
     params: params
   })
