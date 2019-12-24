@@ -60,14 +60,12 @@ export default {
         this.tempId = res.data[0].shareTempId
         res.data.forEach(item => {
           this.images.push(item.shareTempBigPic)
-          this.images.push(item.shareTempBigPic)
-          this.images.push(item.shareTempBigPic)
         })
       }
     })
   },
   methods: {
-    
+
   }
 }
 </script>

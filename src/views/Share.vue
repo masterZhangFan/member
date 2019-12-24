@@ -46,11 +46,12 @@ export default {
   computed: mapState([
     'userType'
   ]),
-  created () {
+  mounted () {
     getShareParams({
       shareTempId: this.$route.query.tempId
     }).then(res => {
       this.configShareData = res.data
+      this.setConfigShareData(res.data)
     })
   },
   methods: {
@@ -60,26 +61,29 @@ export default {
     // 配置分享信息
     setConfigShareData (shareData) {
       let _this = this
-      var config = {
-        title: shareData.title, // 分享标题
-        desc: shareData.desc, // 分享描述
-        link: shareData.link, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-        imgUrl: shareData.imgUrl, // 分享图标
-        success: function () {
-        // 设置成功
-          _this.showGuidance = false
-        }
-      }
       window.wx.ready(function () { // 需在用户可能点击分享按钮前就先调用
-        window.wx.onMenuShareAppMessage(config)
-        window.wx.onMenuShareTimeline(config)
+        window.wx.updateAppMessageShareData({
+          title: shareData.title, // 分享标题
+          desc: shareData.desc, // 分享描述
+          link: shareData.link, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+          imgUrl: shareData.imgUrl, // 分享图标
+          success: function () {
+            // 设置成功
+            _this.showGuidance = false
+          }
+        })
+        window.wx.updateTimelineShareData({
+          title: shareData.title, // 分享标题
+          link: shareData.link, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+          imgUrl: shareData.imgUrl, // 分享图标
+          success: function () {
+            // 设置成功
+            _this.showGuidance = false
+          }
+        })
       })
     },
     toShare () {
-      if (!this.isConfig) {
-        this.setConfigShareData(this.configShareData)
-        this.isConfig = true
-      }
       this.showGuidance = true
     }
   }
@@ -91,8 +95,8 @@ export default {
     padding: px2rem(34);
     width: 100%;
     .share-img-box{
+      text-align: center;
       .share-img{
-        width: 100%;
         height: px2rem(712);
       }
     }
