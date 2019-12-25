@@ -7,7 +7,6 @@
         <div class="phone">{{userInfo.phone}}</div>
         <div class="level">
           <span><img src="@/assets/images/icon_masonry.svg" alt=""> {{userType*1===1?getLevelName(userInfo.memberLevel*1):userInfo.delegate.delegateTypeName}}</span>
-          <img class="micon-up" src="@/assets/images/icon_masonry.svg" alt="">
         </div>
         <div class="rules" @click="showRule=true">《代理权益和规则》</div>
       </div>

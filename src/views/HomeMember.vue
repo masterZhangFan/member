@@ -7,7 +7,7 @@
         <div class="phone">{{userInfo.phone}}</div>
         <div class="level" @click="isToUpdata">
           <span><img src="@/assets/images/icon_masonry.svg" alt=""> {{userType*1===1?getLevelName(userInfo.memberLevel*1):userInfo.delegate.delegateTypeName}}</span>
-          <img class="micon-up" src="@/assets/images/up-level.png" alt="">
+          <img v-if="userInfo.memberLevel*1===1" class="micon-up" src="@/assets/images/up-level.png" alt="">
         </div>
         <div class="rules" @click="showRule=true">《会员权益和规则》</div>
       </div>

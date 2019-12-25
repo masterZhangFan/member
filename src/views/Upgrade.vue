@@ -109,10 +109,11 @@ export default {
             getPayResult({
               payOrder: cofigObj.payOrder
             }).then(res => {
-              this.$toast('升级成功')
+              _this.$toast('升级成功')
               setTimeout(() => {
                 getUserData().then(res => {
                   _this.setUserInfo(res.data)
+                  _this.$router.replace('/home-member')
                 })
               }, 1000)
             })
