@@ -36,17 +36,11 @@
         <li>
           <img class="left-logo" src="@/assets/images/icon_invite.svg" alt="">
           <div class="right-box" @click="$router.push('/invite-agents')">
-            <span>代理邀请</span>
+            <span>会员邀请</span>
             <img class="micon-right" src="@/assets/images/icon_right.svg" alt="">
           </div>
         </li>
-        <li>
-          <img class="left-logo" src="@/assets/images/icon_add_agent.svg" alt="">
-          <div class="right-box" @click="show=true">
-            <span>添加代理</span>
-            <img class="micon-right" src="@/assets/images/icon_right.svg" alt="">
-          </div>
-        </li>
+
         <li>
           <img class="left-logo" src="@/assets/images/icon_agent_list.svg" alt="">
           <div class="right-box" @click="$router.push('/agents-list')">

@@ -8,7 +8,7 @@
  -->
 <template>
   <div class="page-container-nobg invite-agents-page">
-    <Header :title="userType*1===1?'会员邀请':'代理邀请'"/>
+    <Header :title="userType*1===1?'会员邀请':'会员邀请'"/>
     <section class="content-box-bottom">
       <div class="invite-type-box">
         <h3>选择模板</h3>
@@ -53,7 +53,7 @@ export default {
   },
   created () {
     getShareTemp({
-      shareTempType: this.userType
+      shareTempType: 1
     }).then(res => {
       this.shareTempType = res.data
       if (res.data.length) {
