@@ -9,10 +9,14 @@
             <span class="phone">{{item.phone}}</span>
             <span class="level">
               <img src="@/assets/images/icon_masonry.svg" alt="">
-              item.delegateTypeName
+              {{item.delegateTypeName}}
             </span>
           </div>
-          <div class="bottom">返现金额：{{item.cashBackAmount}}</div>
+          <div class="bottom">
+            <!-- <span>返现金额：{{item.cashBackAmount}}</span> -->
+            <span class="mr10">收益：{{item.moneyTotal}}</span>
+            <span>粉丝数：{{item.fans}}</span>
+          </div>
         </div>
       </div>
       <div class="no-data-tips" v-if="!agentList.length">无代理数据，赶快去邀请把...</div>
@@ -50,6 +54,9 @@ export default {
 </script>
 <style lang="scss">
 .fans-list-page {
+  .mr10{
+    margin-right: px2rem(20);
+  }
   .van-tabs__wrap{
     height: px2rem(80);
     position: sticky;
@@ -94,11 +101,11 @@ export default {
         }
         .level{
           @include flex;
-          width: px2rem(158);
-          height: px2rem(43);
+          width: px2rem(198);
+          height: px2rem(48);
           border-radius: px2rem(18);
           background: url('~@/assets/images/level_bg.png') no-repeat left top;
-          background-size: contain;
+          background-size: 100% 100%;
           font-size: px2rem(20);
           color: #333;
           margin-right: px2rem(10);

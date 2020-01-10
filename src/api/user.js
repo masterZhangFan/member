@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2019-12-04 23:18:47
- * @LastEditTime : 2019-12-21 00:03:42
+ * @LastEditTime : 2020-01-10 23:05:56
  * @LastEditors  : 尼大人
  * @Description: In User Settings Edit
  * @FilePath: \member\src\api\user.js
@@ -51,6 +51,15 @@ export function getIndirectFanWithUserId (params) {
 export function getDirectlyFanWithUserId (params) {
   return request({
     url: '/user/getDirectlyFanWithUserId',
+    method: 'get',
+    params: params
+  })
+}
+
+// 获取裂变粉丝
+export function getFissionFanWithUserId (params) {
+  return request({
+    url: '/user/getFissionFanWithUserId',
     method: 'get',
     params: params
   })

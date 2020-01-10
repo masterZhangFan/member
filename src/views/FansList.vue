@@ -14,7 +14,7 @@
                   初级会员
                 </span>
               </div>
-              <div class="bottom">返现金额：{{item.memberCashBack}}</div>
+              <div class="bottom">收益：{{item.memberCashBack}}</div>
             </div>
           </div>
           <div class="no-data-tips" v-if="!directlyFansList.length">无直属粉丝...</div>
@@ -30,10 +30,26 @@
                   初级会员
                 </span>
               </div>
-              <div class="bottom">返现金额：{{item.memberCashBack}}</div>
+              <div class="bottom">收益：{{item.memberCashBack}}</div>
             </div>
           </div>
           <div class="no-data-tips" v-if="!directlyFansList.length">无推荐粉丝...</div>
+        </van-tab>
+        <van-tab title="裂变粉丝">
+          <div class="item-fans-box" v-for="(item,index) in fissionFanList" :key="index">
+            <img class="header-img" :src="imgBaseUrl+item.icon" alt="">
+            <div class="content-info">
+              <div class="top">
+                <span class="phone">{{item.nickname}}</span>
+                <span class="level">
+                  <img src="@/assets/images/icon_masonry.svg" alt="">
+                  初级会员
+                </span>
+              </div>
+              <div class="bottom">收益：{{item.memberCashBack}}</div>
+            </div>
+          </div>
+          <div class="no-data-tips" v-if="!fissionFanList.length">无裂变粉丝...</div>
         </van-tab>
       </van-tabs>
     </section>
@@ -41,7 +57,7 @@
 </template>
 
 <script>
-import { getIndirectFanWithUserId, getDirectlyFanWithUserId } from '@/api/user'
+import { getIndirectFanWithUserId, getDirectlyFanWithUserId, getFissionFanWithUserId } from '@/api/user'
 import Header from '@/components/header/Index.vue'
 export default {
   components: {
@@ -51,6 +67,7 @@ export default {
     return {
       indirectFansList: [],
       directlyFansList: [],
+      fissionFanList: [],
       imgBaseUrl: process.env.VUE_APP_IMG_API
     }
   },
@@ -70,6 +87,11 @@ export default {
     getDirectlyFanWithUserId () {
       getDirectlyFanWithUserId().then(res => {
         this.directlyFansList = res.data
+      })
+    },
+    getFissionFanWithUserId () {
+      getFissionFanWithUserId().then(res => {
+        this.fissionFanList = res.data
       })
     }
   }

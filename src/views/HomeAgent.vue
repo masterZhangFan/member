@@ -142,8 +142,8 @@ export default {
         @include flex;
         span{
           @include flex;
-          width: px2rem(158);
-          height: px2rem(43);
+          width: px2rem(198);
+          height: px2rem(53);
           border-radius: px2rem(18);
           background: url('~@/assets/images/level_bg.png') no-repeat left top;
           background-size: contain;
