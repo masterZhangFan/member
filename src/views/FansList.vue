@@ -11,7 +11,7 @@
                 <span class="phone">{{item.nickname}}</span>
                 <span class="level">
                   <img src="@/assets/images/icon_masonry.svg" alt="">
-                  初级会员
+                  {{getLevelName(item.typeOfMembership)}}
                 </span>
               </div>
               <div class="bottom">收益：{{item.memberCashBack}}</div>
@@ -27,7 +27,7 @@
                 <span class="phone">{{item.nickname}}</span>
                 <span class="level">
                   <img src="@/assets/images/icon_masonry.svg" alt="">
-                  初级会员
+                  {{getLevelName(item.typeOfMembership)}}
                 </span>
               </div>
               <div class="bottom">收益：{{item.memberCashBack}}</div>
@@ -43,7 +43,7 @@
                 <span class="phone">{{item.nickname}}</span>
                 <span class="level">
                   <img src="@/assets/images/icon_masonry.svg" alt="">
-                  初级会员
+                  {{getLevelName(item.typeOfMembership)}}
                 </span>
               </div>
               <div class="bottom">收益：{{item.memberCashBack}}</div>
