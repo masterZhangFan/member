@@ -74,6 +74,7 @@ export default {
   created () {
     this.getIndirectFanWithUserId()
     this.getDirectlyFanWithUserId()
+    this.getFissionFanWithUserId()
   },
   methods: {
     onClick (name, title) {
