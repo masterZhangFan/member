@@ -3,7 +3,10 @@
     <Header title="粉丝列表"/>
     <section>
       <van-tabs @click="onClick">
-        <van-tab title="直属粉丝">
+        <van-tab>
+          <div slot="title">
+            <span class="van-tab-title">直属粉丝<i class="van-tab-title-num">{{directlyFansList.length}}</i></span>
+          </div>
           <div class="item-fans-box" v-for="(item,index) in directlyFansList" :key="index">
             <img class="header-img" :src="imgBaseUrl+item.icon" alt="">
             <div class="content-info">
@@ -20,6 +23,9 @@
           <div class="no-data-tips" v-if="!directlyFansList.length">无直属粉丝...</div>
         </van-tab>
         <van-tab title="推荐粉丝">
+          <div slot="title">
+            <span class="van-tab-title">推荐粉丝<i class="van-tab-title-num">{{indirectFansList.length}}</i></span>
+          </div>
           <div class="item-fans-box" v-for="(item,index) in indirectFansList" :key="index">
             <img class="header-img" :src="imgBaseUrl+item.icon" alt="">
             <div class="content-info">
@@ -36,6 +42,9 @@
           <div class="no-data-tips" v-if="!directlyFansList.length">无推荐粉丝...</div>
         </van-tab>
         <van-tab title="裂变粉丝">
+          <div slot="title">
+            <span class="van-tab-title">裂变粉丝<i class="van-tab-title-num">{{fissionFanList.length}}</i></span>
+          </div>
           <div class="item-fans-box" v-for="(item,index) in fissionFanList" :key="index">
             <img class="header-img" :src="imgBaseUrl+item.icon" alt="">
             <div class="content-info">
@@ -82,17 +91,17 @@ export default {
     },
     getIndirectFanWithUserId () {
       getIndirectFanWithUserId().then(res => {
-        this.indirectFansList = res.data
+        this.indirectFansList = res.data || []
       })
     },
     getDirectlyFanWithUserId () {
       getDirectlyFanWithUserId().then(res => {
-        this.directlyFansList = res.data
+        this.directlyFansList = res.data || []
       })
     },
     getFissionFanWithUserId () {
       getFissionFanWithUserId().then(res => {
-        this.fissionFanList = res.data
+        this.fissionFanList = res.data || []
       })
     }
   }
@@ -100,6 +109,30 @@ export default {
 </script>
 <style lang="scss">
 .fans-list-page {
+  .van-tab-title{
+    position: relative;
+    .van-tab-title-num{
+      position: absolute;
+      top: px2rem(26);
+      right: px2rem(48);
+      box-sizing: border-box;
+      min-width: px2rem(32);
+      padding: 0 px2rem(6);
+      color: #fff;
+      font-weight: 500;
+      font-size: px2rem(24);
+      font-family: PingFang SC, Helvetica Neue, Arial, sans-serif;
+      line-height: px2rem(28);
+      text-align: center;
+      background-color: #ee0a24;
+      border: 1px solid #fff;
+      border-radius: px2rem(32);
+      -webkit-transform: translate(50%, -50%);
+      transform: translate(50%, -50%);
+      -webkit-transform-origin: 100%;
+      transform-origin: 100%;
+    }
+  }
   .van-tabs__wrap{
     height: px2rem(80);
     position: sticky;
